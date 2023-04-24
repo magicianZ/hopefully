@@ -12,11 +12,14 @@ class Player:
         self.magic_point = magic_point
         self.energy_point = energy_point
 
-    def attack(self):
-        self.HP = self.HP - self.Damage
-        self.energy_point = self.energy_point - 1
-    def block(self):
-        self.Damage = self.Damage/2
+
+    def attack(self,target):
+        damage_taken = target.HP - self.Damage
+        target.HP = damage_taken
+
+      
+    def block(self,target):
+        target.Damage = target.Damage/2
         self.energy_point + 1
     def magic_attack(self):
         self.Damage = self.Damage + 50
@@ -26,15 +29,20 @@ class Player:
         self.Damage = self.Damage
     def turn(self):
         user_input = input('Would you like to, Attack , Block,or use a magic attack')
-        while user_input == 'Attack':
+        if user_input == 'Attack':
+            Ly.attack(NPC)
             #something.damage()
-            break
-        while user_input == 'Block':
+            print('attack')
+            
+        elif user_input == 'Block':
+            NPC.block(Ly)
+            print('block')
             #something.block()
-            break
-        while user_input == 'Magic Attack':
+            
+        elif user_input == 'Magic Attack':
+            print('magic')
             #something.magic_attack()
-            break
+            
     
         
     
@@ -46,10 +54,34 @@ class Player:
 
 
 
-Ly = Player(100,"Sword","Lie Lee",1,3,1)
-Ly.attack()
-print(Ly.HP)
-print(Ly.energy_point)
+Ly = Player(100,"Sword","Lie Lee",50,3,1)
+
+NPC = Player(1000,"Sword","Lie Lee",1,3,1)
+LysTurn = True
+EnemiestURN = False
+
+
+running = True
+while running == True:
+    if LysTurn:
+        Ly.turn()
+        print(NPC.HP)
+        EnemiestURN = True
+    elif EnemiestURN:
+        NPC.turn()
+    else:
+        LysTurn == True
+
+       
+
+
+
+
+
+
+  
+
+
 
 
 
