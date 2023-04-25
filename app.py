@@ -3,7 +3,6 @@ import random
 
 
 class Player:
-    
    
     def __init__(self,HP,Weapon,Name,Damage,energy_point,magic_point):
         self.HP = HP
@@ -12,17 +11,15 @@ class Player:
         self.Damage = Damage
         self.magic_point = magic_point
         self.energy_point = energy_point
-        
+
 
     def attack(self,target):
         damage_taken = target.HP - self.Damage
         target.HP = damage_taken
-        target.incoming_damage = self.Damage
 
       
     def block(self,target):
-        target.Damage = target.incoming_damage
-        target.incoming_damage = target.incoming_damage/2
+        target.Damage = target.Damage/2
         self.energy_point + 1
     def magic_attack(self):
         self.Damage = self.Damage + 50
@@ -63,36 +60,17 @@ NPC = Player(1000,"Sword","Lie Lee",1,3,1)
 LysTurn = True
 EnemiestURN = False
 
-def Lygoturn():
-    if LysTurn:
-        Ly.turn()
-        print('Ly Turn')
-        EnemiestURN = True
-    elif EnemiestURN:
-        NPC.turn()
-        print('Npc turn')
-    else:
-        LysTurn == True
-def NPCgoturn():
-    global LysTurn
-    if EnemiestURN:
-        NPC.turn()
-        print('Npc Turn')
-        LysTurn = True
-    elif LysTurn:
-        Ly.turn()
-        print('Ly Turn')
-    else:
-        EnemiestURN == True
-
-
 
 running = True
 while running == True:
-    
-    Lygoturn()
-
-
+    if LysTurn:
+        Ly.turn()
+        print(NPC.HP)
+        EnemiestURN = True
+    elif EnemiestURN:
+        NPC.turn()
+    else:
+        LysTurn == True
 
        
 
