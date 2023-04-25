@@ -61,7 +61,7 @@ class Player:
 
 Ly = Player(100,"Sword","Lie Lee",50,3,1)
 
-NPC = Player(1000,"Sword","NPC",10,3,1)
+NPC = Player(200,"Sword","NPC",10,3,1)
 LysTurn = True
 EnemiestURN = False
 """ Ly.turn(NPC)
@@ -72,7 +72,7 @@ print(Ly.HP) """
 
 
 running = True
-while running == True:
+while running:
     if LysTurn:
         Ly.turn(NPC)
         print(NPC.HP)
@@ -82,6 +82,8 @@ while running == True:
         print(Ly.HP)
     else:
         LysTurn == True 
+    if Ly.HP <= 0 or NPC.HP <= 0:
+        break
 
        
 
