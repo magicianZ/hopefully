@@ -27,10 +27,10 @@ class Player:
         
     def revert_Damage(self):
         self.Damage = self.Damage
-    def turn(self):
+    def turn(self,target):
         user_input = input('Would you like to, Attack , Block,or use a magic attack')
         if user_input == 'Attack':
-            Ly.attack(NPC)
+            self.attack(target)
             #something.damage()
             print('attack')
             
@@ -59,18 +59,24 @@ Ly = Player(100,"Sword","Lie Lee",50,3,1)
 NPC = Player(1000,"Sword","Lie Lee",1,3,1)
 LysTurn = True
 EnemiestURN = False
+Ly.attack(NPC)
+print(NPC.HP)
+
+NPC.attack(Ly)
+print(Ly.HP)
 
 
-running = True
+""" running = True
 while running == True:
     if LysTurn:
-        Ly.turn()
+        Ly.turn(NPC)
         print(NPC.HP)
         EnemiestURN = True
     elif EnemiestURN:
-        NPC.turn()
+        NPC.turn(Ly)
+        print(Ly.HP)
     else:
-        LysTurn == True
+        LysTurn == True """
 
        
 
