@@ -19,7 +19,10 @@ class Player:
             damage_taken = target.HP - self.Damage
             target.HP = damage_taken
             self.energy_point = self.energy_point - 1
-            print(self.energy_point)
+            print(f'{target.Name} is {target.HP} HP and you have {self.energy_point}energy points')
+            print('-----------------------------')
+           
+
         else:
             print('You got no energy points, you need to heal homie')
 
@@ -27,8 +30,9 @@ class Player:
     def heal(self,target):
         real_HP = self.HP + 25
         self.HP = real_HP
-        print(f'Your HP is now {real_HP}')
-        self.energy_point + 1
+        print(f'{self.Name} HP is now {real_HP}')
+        print('----------------------------')
+        self.energy_point = self.energy_point + 1
     def magic_attack(self):
         self.Damage = self.Damage + 50
         self.magic_points - 1
@@ -43,7 +47,22 @@ class Player:
             NPC.heal(Ly)
         elif user_input == 'Magic Attack':
             print('magic')
-            #something.magic_attack()
+    def AI(self,target):
+        self.list = ['Attack','Attack','Attack','Heal']
+        get_lucky = random.choice(self.list)
+        if get_lucky == 'Attack':
+            self.attack(target)
+            print('The NPC attacked you...')
+        elif get_lucky == 'Heal':
+            self.heal(Ly)
+            print('The NPC Healed...')
+        else:
+            print('Ai sucks')
+
+
+
+
+      
             
     
         
@@ -72,14 +91,14 @@ running = True
 while running:
     if LysTurn:
         Ly.turn(NPC)
-        print(NPC.HP)
+        
         EnemiestURN = True
     if Ly.HP <= 0 or NPC.HP <= 0:
         break
 
     if EnemiestURN:
-        NPC.turn(Ly)
-        print(Ly.HP)
+        NPC.AI(Ly)
+        
     else:
         LysTurn == True 
     if Ly.HP <= 0 or NPC.HP <= 0:
