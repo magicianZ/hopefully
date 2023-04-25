@@ -11,6 +11,7 @@ class Player:
         self.Damage = Damage
         self.magic_point = magic_point
         self.energy_point = energy_point
+        
 
 
     def attack(self,target):
@@ -18,10 +19,11 @@ class Player:
         target.HP = damage_taken
 
       
-    def block(self,target):
-        incoming_damage = target.Damage
-        target.Damage = incoming_damage/2
-        self.HP = self.HP - incoming_damage
+    def heal(self,target):
+        real_HP = self.HP + 25
+        self.HP = real_HP
+        print(f'Your HP is now {real_HP}')
+        
     
         self.energy_point + 1
     def magic_attack(self):
@@ -31,14 +33,14 @@ class Player:
     def revert_Damage(self):
         self.Damage = self.Damage
     def turn(self,target):
-        user_input = input(f'{self.Name}s turn - Would you like to, Attack , Block,or use a magic attack')
+        user_input = input(f'{self.Name}s turn - Would you like to, Attack , Heal,or use a magic attack').capitalize()
         if user_input == 'Attack':
             self.attack(target)
             #something.damage()
             print('attack')
             
-        elif user_input == 'Block':
-            NPC.block(Ly)
+        elif user_input == 'Heal':
+            NPC.heal(Ly)
             print('block')
             #something.block()
             
@@ -59,7 +61,7 @@ class Player:
 
 Ly = Player(100,"Sword","Lie Lee",50,3,1)
 
-NPC = Player(1000,"Sword","NPC",1,3,1)
+NPC = Player(1000,"Sword","NPC",10,3,1)
 LysTurn = True
 EnemiestURN = False
 """ Ly.turn(NPC)
