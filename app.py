@@ -77,6 +77,9 @@ while running:
         Ly.turn(NPC)
         print(NPC.HP)
         EnemiestURN = True
+    if Ly.HP <= 0 or NPC.HP <= 0:
+        break
+
     if EnemiestURN:
         NPC.turn(Ly)
         print(Ly.HP)
