@@ -19,7 +19,10 @@ class Player:
 
       
     def block(self,target):
-        target.Damage = target.Damage/2
+        incoming_damage = target.Damage
+        target.Damage = incoming_damage/2
+        self.HP = self.HP - incoming_damage
+    
         self.energy_point + 1
     def magic_attack(self):
         self.Damage = self.Damage + 50
@@ -28,7 +31,7 @@ class Player:
     def revert_Damage(self):
         self.Damage = self.Damage
     def turn(self,target):
-        user_input = input('Would you like to, Attack , Block,or use a magic attack')
+        user_input = input(f'{self.Name}s turn - Would you like to, Attack , Block,or use a magic attack')
         if user_input == 'Attack':
             self.attack(target)
             #something.damage()
@@ -56,27 +59,27 @@ class Player:
 
 Ly = Player(100,"Sword","Lie Lee",50,3,1)
 
-NPC = Player(1000,"Sword","Lie Lee",1,3,1)
+NPC = Player(1000,"Sword","NPC",1,3,1)
 LysTurn = True
 EnemiestURN = False
-Ly.attack(NPC)
+""" Ly.turn(NPC)
 print(NPC.HP)
 
-NPC.attack(Ly)
-print(Ly.HP)
+NPC.turn(Ly)
+print(Ly.HP) """
 
 
-""" running = True
+running = True
 while running == True:
     if LysTurn:
         Ly.turn(NPC)
         print(NPC.HP)
         EnemiestURN = True
-    elif EnemiestURN:
+    if EnemiestURN:
         NPC.turn(Ly)
         print(Ly.HP)
     else:
-        LysTurn == True """
+        LysTurn == True 
 
        
 
