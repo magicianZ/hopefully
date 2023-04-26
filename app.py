@@ -29,6 +29,7 @@ class Player:
         real_HP = self.HP + 25
         self.HP = real_HP
         self.energy_point = self.energy_point + 1
+        self.magic_point = self.magic_point = 0.5
         print(f'{self.Name} HP is now {real_HP} and you have {self.energy_point}energy points')
         print('----------------------------')
     
