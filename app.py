@@ -79,7 +79,7 @@ class Player:
         
 
 Ly = Player(100,"Sword","Lie Lee",50,3,1,100)
-NPC = Player(500,"Sword","NPC",10,3,1,20)
+NPC = Player(200,"Sword","NPC",10,3,1,20)
 
 
 LysTurn = True
@@ -94,15 +94,24 @@ while running:
         Ly.turn(NPC)
         
         EnemiestURN = True
-    if Ly.HP <= 0 or NPC.HP <= 0:
+    if Ly.HP <= 0:
+        print('You died')
         break
+    if NPC.HP <=0:
+        print('You won, the Mob died')
+        break
+
 
     if EnemiestURN:
         NPC.AI(Ly)
         
     else:
         LysTurn == True 
-    if Ly.HP <= 0 or NPC.HP <= 0:
+    if Ly.HP <= 0:
+        print('You died')
+        break
+    if NPC.HP <=0:
+        print('You won, the Mob died')
         break
 
        
