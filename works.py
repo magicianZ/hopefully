@@ -87,42 +87,28 @@ running = True
 
 
 
-def encounter():
-    while running:
-        if LysTurn:
-            Ly.turn(NPC)
+
+while running:
+    if LysTurn:
+        Ly.turn(NPC)
         
-            EnemiestURN = True
-        if Ly.HP <= 0:
-            print('You died')
-            break
-        if NPC.HP <=0:
-            print('You won, the Mob died')
-            break
+        EnemiestURN = True
+    if Ly.HP <= 0:
+        print('You died')
+        break
+    if NPC.HP <=0:
+        print('You won, the Mob died')
+        break
 
 
-        if EnemiestURN:
-            NPC.AI(Ly)
+    if EnemiestURN:
+        NPC.AI(Ly)
         
-        else:
-            LysTurn == True 
-        if Ly.HP <= 0:
-            print('You died')
-            break
-        if NPC.HP <=0:
-            print('You won, the Mob died')
-            break
-
-print("You're exploring a forest near the village you started at. While exploring you encounter a monster, you can choose fight it or run away...")
-user_input = input("Do you choose to fight it or run way? (Fight/Run)").capitalize()
-if user_input == "Fight":
-    print("You chose to fight the monster.")
-    encounter()
-
-
-
-
-
-
-
-
+    else:
+        LysTurn == True 
+    if Ly.HP <= 0:
+        print('You died')
+        break
+    if NPC.HP <=0:
+        print('You won, the Mob died')
+        break
