@@ -30,7 +30,7 @@ class Player:
         self.HP = real_HP
         self.energy_point = self.energy_point + 1
         self.magic_point = self.magic_point = 0.5
-        print(f'{self.Name} HP is now {real_HP} and you have {self.energy_point}energy points')
+        print(f'{self.Name} HP is now {real_HP} and {self.Name} have {self.energy_point}energy points')
         print('----------------------------')
     
         
@@ -56,7 +56,7 @@ class Player:
 
 
     def AI(self,target):
-        self.list = ['Attack','Attack','Attack','Heal']
+        self.list = ['Attack','Attack','Attack']
         get_lucky = random.choice(self.list)
         if self.energy_point > 0:
              if get_lucky == 'Attack':
@@ -64,7 +64,8 @@ class Player:
                 print('The NPC attacked you...')
         elif self.energy_point == 0:
             if get_lucky == 'Attack':
-                get_lucky == 'Heal'
+                self.heal(Ly)
+             
             if get_lucky == 'Heal':
                 self.heal(Ly)
                 print('The NPC Healed...')
