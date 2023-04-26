@@ -118,7 +118,9 @@ user_input = input("Do you choose to fight it or run way? (Fight/Run)").capitali
 if user_input == "Fight":
     print("You chose to fight the monster.")
     encounter()
-
+if user_input == "Run":
+    print("Nah you ain't running, go fight that thing.")
+    encounter()
 
 
 
