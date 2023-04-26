@@ -113,6 +113,7 @@ def encounter():
         if NPC.HP <=0:
             print('You won, the Mob died')
             break
+encounter()
 
        
 
