@@ -88,31 +88,31 @@ running = True
 
 
 
-
-while running:
-    if LysTurn:
-        Ly.turn(NPC)
+def encounter():
+    while running:
+        if LysTurn:
+            Ly.turn(NPC)
         
-        EnemiestURN = True
-    if Ly.HP <= 0:
-        print('You died')
-        break
-    if NPC.HP <=0:
-        print('You won, the Mob died')
-        break
+            EnemiestURN = True
+        if Ly.HP <= 0:
+            print('You died')
+            break
+        if NPC.HP <=0:
+            print('You won, the Mob died')
+            break
 
 
-    if EnemiestURN:
-        NPC.AI(Ly)
+        if EnemiestURN:
+            NPC.AI(Ly)
         
-    else:
-        LysTurn == True 
-    if Ly.HP <= 0:
-        print('You died')
-        break
-    if NPC.HP <=0:
-        print('You won, the Mob died')
-        break
+        else:
+            LysTurn == True 
+        if Ly.HP <= 0:
+            print('You died')
+            break
+        if NPC.HP <=0:
+            print('You won, the Mob died')
+            break
 
        
 
