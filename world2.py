@@ -3,7 +3,7 @@ import random
 
 
 class Player:
-    Sharpening_Stone = 10
+    Sharpening_Stone = 50
     Armor = 50
     Wand = 100
     Magic_Armor = 50
@@ -81,12 +81,42 @@ class Player:
                 print('The NPC Healed...')
             else:
                 print('Ai sucks')
+
     def add_gold(self,amount):
         self.gold = self.gold + amount
         print(f'{self.Name} now has {self.gold} gold')
+
     def preview_items(self):
         print(f'Welcome to the shop, our items are {self.items}')
         print('Sharpening stone increases your damage by 10, Armor increases your HP by 50, Magic Armor increases your magic health by 50 and the wand increases your magic damage by 100')
+        weapon_choice = input('Would you like to buy anything? Y/N').capitalize()
+        if weapon_choice == 'Y':
+            what_item = input('What item would you like to buy?')
+            if what_item == 'Sharpening_Stone':
+                if self.gold >= 10:
+                    self.Damage = self.Damage + self.Sharpening_Stone
+                    print(self.Damage)
+              
+            if what_item == 'Armor':
+                if self.gold >= 10:
+                    self.HP = self.HP + self.Armor
+                    print(self.HP)
+                  
+            if what_item == 'Wand':
+                if self.gold >= 10:
+                    self.magic_damage = self.magic_damage + self.Wand
+                    print(self.magic_damage)
+                  
+            if what_item == 'Magic_Armor':
+                if self.gold >= 10:
+                    self.magic_health = self.magic_health + self.Magic_Armor
+                    print(self.magic_health)
+            
+
+
+        if weapon_choice == 'N':
+            print('Ok cheapskate...')
+
 
 
 
@@ -131,7 +161,9 @@ def encounter():
             print('You won, the Mob died')
             Ly.add_gold(12)
             break
+encounter()
 def shop():
+
     Ly.preview_items()
 
 shop()
