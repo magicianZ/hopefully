@@ -125,6 +125,12 @@ elif user_input == "Run":
     encounter()
 else:
     print("Homie that ain't a valid response.")
+if NPC.HP <= 0:
+    print("Where do you decide to go now?")
+    np = input("(Left/Right)").capitalize
+    if np == "Left" :
+
+    elif np == "Right" :
 
 
 
