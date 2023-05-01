@@ -166,48 +166,101 @@ def shop():
 
 
 print("You're exploring a forest near the village you started at. While exploring you encounter a monster, you can choose fight it or run away...")
-ran = [1,2]
-
+ran = [1,2,3]
+prs = [1,2]
 coi = [10,11,12,13,14,15,16,17,18]
 
-user_input = input("Do you choose to fight it or run way? (Fight/Run)").capitalize()
 
-if user_input == "Fight":
-    print("You chose to fight the monster.")
-    encounter()
-elif user_input == "Run":
-    print("Nah you ain't running, go fight that thing.")
-    encounter()
-else:
-    print("Don't matter if you can't spell you still gotta fight.")
-    encounter()
+def tatakae():
+    if user_input == "Fight":
+        print("You chose to fight the monster.")
+        encounter()
+    elif user_input == "Run":
+        print("Nah you ain't running, go fight that thing.")
+        encounter()
+    else:
+        print("Don't matter if you can't spell you still gotta fight.")
+        encounter()
+user_input = input("Do you choose to fight it or run way? (Fight/Run)").capitalize()
+tatakae()
 def paths():
+    np = input("(Left/Right)").capitalize()
+    if np == "Left" :
+        numb = random.choice(ran)
+        while numb == 1:
+            cooi = random.choice(coi)
+            print("--------------------------------")
+            print("You found a treasure chest!")
+            Ly.add_gold(cooi)
+            if numb != 1:
+                break
+        while numb == 2:
+            print("You found another Monster. (Fight/Run)")
+            tatakae()
+            if numb != 2:
+                break
+    elif np == "Right" :
+        numb = random.choice(ran)
+        while numb == 1:
+            cooi = random.choice(coi)
+            print("--------------------------------")
+            print("You found a treasure chest!")
+            Ly.add_gold(cooi)
+            if numb != 1:
+                break
+        while numb == 2:
+            print("You found another Monster. (Fight/Run)")
+            tatakae()
+            if numb != 2:
+                break
+def pathss():
     print("Where do you decide to go now?")
     np = input("(Left/Right)").capitalize()
     if np == "Left" :
         numb = random.choice(ran)
-        if numb == 1:
+        while numb == 1:
             cooi = random.choice(coi)
             print("--------------------------------")
             print("You found a treasure chest!")
             Ly.add_gold(cooi)
-        else:
-            print("----------")
-            print("N/A")
+            paths()
+            break
+        while numb == 2:
+            print("You found another Monster. (Fight/Run)")
+            tatakae()
+            paths()
+            break
+        while numb == 3:
+            print("The path breaks again, where do you go?")
+            paths()
+            break
     elif np == "Right" :
         numb = random.choice(ran)
-        if numb == 1:
+        while numb == 1:
             cooi = random.choice(coi)
             print("--------------------------------")
             print("You found a treasure chest!")
             Ly.add_gold(cooi)
-        else:
-            print("----------")
-            print("N/A")
+            paths()
+            if numb != 1:
+                break
+        while numb == 2:
+            print("You found another Monster. (Fight/Run)")
+            tatakae()
+            paths()
+            if numb != 2:
+                break
+        while numb == 3:
+            print("The path breaks again, where do you go?")
+            paths()
+            if numb != 3:
+                break
+    
 
 
 if NPC.HP <= 0:
-    paths()
+    pathss()
+    NPC.HP == 200
 
 
 
