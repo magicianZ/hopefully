@@ -184,21 +184,18 @@ def tatakae():
 user_input = input("Do you choose to fight it or run way? (Fight/Run)").capitalize()
 tatakae()
 def paths():
-    np = input("(Left/Right)").capitalize()
+    np = input("(Left/Right/Return)").capitalize()
     if np == "Left" :
         numb = random.choice(ran)
-        while numb == 1:
+        if numb == 1:
             cooi = random.choice(coi)
             print("--------------------------------")
             print("You found a treasure chest!")
             Ly.add_gold(cooi)
-            if numb != 1:
-                break
-        while numb == 2:
+            print("") 
+        elif numb == 2:
             print("You found another Monster. (Fight/Run)")
-            tatakae()
-            if numb != 2:
-                break
+            tatakae()     
     elif np == "Right" :
         numb = random.choice(ran)
         while numb == 1:
@@ -213,53 +210,12 @@ def paths():
             tatakae()
             if numb != 2:
                 break
-def pathss():
-    print("Where do you decide to go now?")
-    np = input("(Left/Right)").capitalize()
-    if np == "Left" :
-        numb = random.choice(ran)
-        while numb == 1:
-            cooi = random.choice(coi)
-            print("--------------------------------")
-            print("You found a treasure chest!")
-            Ly.add_gold(cooi)
-            paths()
-            break
-        while numb == 2:
-            print("You found another Monster. (Fight/Run)")
-            tatakae()
-            paths()
-            break
-        while numb == 3:
-            print("The path breaks again, where do you go?")
-            paths()
-            break
-    elif np == "Right" :
-        numb = random.choice(ran)
-        while numb == 1:
-            cooi = random.choice(coi)
-            print("--------------------------------")
-            print("You found a treasure chest!")
-            Ly.add_gold(cooi)
-            paths()
-            if numb != 1:
-                break
-        while numb == 2:
-            print("You found another Monster. (Fight/Run)")
-            tatakae()
-            paths()
-            if numb != 2:
-                break
-        while numb == 3:
-            print("The path breaks again, where do you go?")
-            paths()
-            if numb != 3:
-                break
-    
-
-
+    elif np == "Return":
+        Ly.HP == 100
+        print(Ly.HP)
+        
 if NPC.HP <= 0:
-    pathss()
+    paths()
     NPC.HP == 200
 
 
