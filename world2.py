@@ -119,17 +119,16 @@ LysTurn = True
 EnemiestURN = False
 running = True
 enemies = [NPC1,NPC2,NPC3]
-enemy = random.choice(enemies)
+
 
 
 
 
 def encounter():
-
+    enemy = random.choice(enemies)
     while running:
         if LysTurn:
             Ly.turn(enemy)
-        
             EnemiestURN = True
         if Ly.HP <= 0:
             print('You died')
@@ -138,6 +137,7 @@ def encounter():
             print('You won, the Mob died')
             Ly.add_gold(12)
             Ly.HP = Ly.max_HP
+            enemies.remove(enemy)
             break
         if EnemiestURN:
             enemy.AI(Ly)
@@ -150,6 +150,7 @@ def encounter():
             print('You won, the Mob died')
             Ly.add_gold(12)
             Ly.HP = Ly.max_HP
+            enemies.remove(enemy)
             break
 encounter()
 def shop():
