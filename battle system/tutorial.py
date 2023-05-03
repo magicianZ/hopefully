@@ -1,6 +1,51 @@
 
 import random
 
+def puzzle1():
+    choices = ['Rock','Paper','Scissors']
+
+    player_choice = input("Rock paper scissors, what do you pick?").capitalize()
+    computer_choice = random.choice(choices)
+
+    while player_choice not in choices:
+        player_choice = input('Rock paper scissors, what do you pick?').capitalize()
+
+    if player_choice == computer_choice:
+        print('It was a tie')
+        print('You have won, you may continue..')
+        win = True
+        return win
+
+    elif player_choice == 'Rock':
+        if computer_choice == 'Paper':
+            print ('You lose')
+        elif computer_choice == 'Scissors':
+            print ('You win')
+            print('You have won, you may continue..')
+            win = True
+            return win
+
+    elif player_choice == 'Paper':
+        if computer_choice == 'Scissors':
+            print ('You lose')
+        elif computer_choice == 'Rock':
+            print ('You win')
+            print('You have won, you may continue..')
+            win = True
+            return win
+
+    elif player_choice == 'Scissors':
+        if computer_choice == 'Rock':
+            print ('You lose')
+    elif computer_choice == 'Paper':
+        print ('You win')
+        print('You have won, you may continue..')
+        win = True
+        return win
+
+
+
+
 class Player:
     Sharpening_Stone = 50
     Armor = 50
@@ -105,6 +150,8 @@ class Player:
 
         if weapon_choice == 'N':
             print('Ok cheapskate...')
+    
+    
     def puzzle(self):
         print('Welcome to my lair fool, you must complete 1 game against me to get past.')
 
@@ -173,10 +220,12 @@ encounter()
 print('Great job in your first battle, but it gets harder from here...')
 question = input('Would you look to go Left or Right')
 if question == 'Left' or 'Right':
-    pass
+    puzzle1()
 else:
     print('You encounter a puzzle')
-    pass
+    puzzle1()
+if win == True:
+    encounter()
 
 
 
