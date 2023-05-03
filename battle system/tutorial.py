@@ -105,6 +105,8 @@ class Player:
 
         if weapon_choice == 'N':
             print('Ok cheapskate...')
+    def puzzle(self):
+        print('Welcome to my lair fool, you must complete 1 game against me to get past.')
 
 
 
@@ -135,25 +137,25 @@ def encounter():
     enemy = random.choice(enemies)
     while running:
         if LysTurn:
-            Ly.turn(enemy)
+            Ly.turn(NPC1)
             EnemiestURN = True
         if Ly.HP <= 0:
             print('You died')
             break
-        if enemy.HP <=0:
+        if NPC1.HP <=0:
             print('You won, the Mob died')
             Ly.add_gold(12)
             Ly.HP = Ly.max_HP
             enemies.remove(enemy)
             break
         if EnemiestURN:
-            enemy.AI(Ly)
+            NPC1.AI(Ly)
         else:
             LysTurn == True 
         if Ly.HP <= 0:
             print('You died')
             break
-        if enemy.HP <= 0:
+        if NPC1.HP <= 0:
             print('You won, the Mob died')
             Ly.add_gold(12)
             Ly.HP = Ly.max_HP
@@ -163,10 +165,19 @@ def shop():
 
     Ly.preview_items()
 
+
 print('Welcome to the tutorial, I will show you how to play the game.')
 print('---------------------------------')
 print('The attack system, you have basic attacks and magic attacks. Magic attacks require energy to pull off, if you do not have an energy point use an attack to gain one. If you use a magic attack with no energy points you will flail in exhaustation and your turn will be skipped. You will fight against monsters and they will fight you back, the HP of your character will be displayed. Now try against an monster.')
 encounter()
+print('Great job in your first battle, but it gets harder from here...')
+question = input('Would you look to go Left or Right')
+if question == 'Left' or 'Right':
+    pass
+else:
+    print('You encounter a puzzle')
+    pass
+
 
 
 
