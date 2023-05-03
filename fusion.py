@@ -1,7 +1,7 @@
 
 import random
-
-
+import threading,time
+t = threading.Thread
 class Player:
     Sharpening_Stone = 50
     Armor = 50
@@ -132,6 +132,8 @@ def encounter():
             EnemiestURN = True
         if Ly.HP <= 0:
             print('You died')
+            print("       GAME OVER")
+            print("-Diagnosis: Skill Issue-")
             break
         if enemy.HP <=0:
             print('You won, the Mob died')
@@ -145,6 +147,8 @@ def encounter():
             LysTurn == True 
         if Ly.HP <= 0:
             print('You died')
+            print("       GAME OVER")
+            print("-Diagnosis: Skill Issue-")
             break
         if enemy.HP <= 0:
             print('You won, the Mob died')
@@ -184,27 +188,47 @@ def paths():
             print("--------------------------------")
             print("You found a treasure chest!")
             Ly.add_gold(cooi)
-            print("") 
+            print("And return to the town...")
+            print("You're back in town what do you want to do?")
+            buy = input("(Shop/Explore)").capitalize()
+            Ly.HP = Ly.max_HP
+            print(Ly.HP)
+            if buy == "Shop":
+                shop()
+            elif buy == "Explore":
+                tatakae()
         elif numb == 2:
             print("You found another Monster. (Fight/Run)")
             tatakae()     
     elif np == "Right" :
         numb = random.choice(ran)
-        while numb == 1:
+        if numb == 1:
             cooi = random.choice(coi)
             print("--------------------------------")
             print("You found a treasure chest!")
             Ly.add_gold(cooi)
-            if numb != 1:
-                break
-        while numb == 2:
+            print("And return to the town...")
+            print("You're back in town what do you want to do?")
+            buy = input("(Shop/Explore)").capitalize()
+            Ly.HP = Ly.max_HP
+            print(Ly.HP)
+            if buy == "Shop":
+                shop()
+            elif buy == "Explore":
+                tatakae()
+        elif numb == 2:
             print("You found another Monster. (Fight/Run)")
             tatakae()
-            if numb != 2:
-                break
     elif np == "Return":
-        Ly.HP == 100
+        print("You're back in town what do you want to do?")
+        buy = input("(Shop/Explore)").capitalize()
+        Ly.HP = Ly.max_HP
         print(Ly.HP)
-        
-
-
+        if buy == "Shop":
+            shop()
+            
+        elif buy == "Explore":
+            tatakae()
+    
+if Ly.HP >0:
+    paths()
