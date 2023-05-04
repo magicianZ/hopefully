@@ -1,11 +1,11 @@
 
 import random
-
+win = False
 def puzzle1():
     choices = ['Rock','Paper','Scissors']
 
     player_choice = input("Rock paper scissors, what do you pick?").capitalize()
-    computer_choice = random.choice(choices)
+    computer_choice = "Scissors"
 
     while player_choice not in choices:
         player_choice = input('Rock paper scissors, what do you pick?').capitalize()
@@ -13,17 +13,15 @@ def puzzle1():
     if player_choice == computer_choice:
         print('It was a tie')
         print('You have won, you may continue..')
-        win = True
-        return win
-
+        match = True
     elif player_choice == 'Rock':
         if computer_choice == 'Paper':
             print ('You lose')
         elif computer_choice == 'Scissors':
             print ('You win')
             print('You have won, you may continue..')
-            win = True
-            return win
+            match = True
+            
 
     elif player_choice == 'Paper':
         if computer_choice == 'Scissors':
@@ -31,8 +29,8 @@ def puzzle1():
         elif computer_choice == 'Rock':
             print ('You win')
             print('You have won, you may continue..')
-            win = True
-            return win
+            match = True
+        
 
     elif player_choice == 'Scissors':
         if computer_choice == 'Rock':
@@ -40,8 +38,11 @@ def puzzle1():
     elif computer_choice == 'Paper':
         print ('You win')
         print('You have won, you may continue..')
+        match = True
+    if match == True:
+        global win
         win = True
-        return win
+      
 
 
 
@@ -127,7 +128,7 @@ class Player:
         print('Sharpening stone increases your damage by 10, Armor increases your HP by 50, Magic Armor increases your magic health by 50 and the wand increases your magic damage by 100')
         weapon_choice = input('Would you like to buy anything? Y/N').capitalize()
         if weapon_choice == 'Y':
-            what_item = input('What item would you like to buy?')
+            what_item = input('What item would you like to buy?').capitalize()
             if what_item == 'Sharpening_Stone':
                 if self.gold >= 10:
                     self.Damage = self.Damage + self.Sharpening_Stone
@@ -226,7 +227,7 @@ else:
     print('You encounter a puzzle')
     puzzle1()
 if win == True:
-    encounter()
+    print('You beat me... I guess you can continue.')
 
 
 
