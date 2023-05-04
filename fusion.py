@@ -1,7 +1,6 @@
 
 import random
-import threading,time
-t = threading.Thread
+
 class Player:
     Sharpening_Stone = 50
     Armor = 50
@@ -162,12 +161,13 @@ def shop():
 
 
 print("You're exploring a forest near the village you started at. While exploring you encounter a monster, you can choose fight it or run away...")
-ran = [1,2,3]
+ran = [1,2]
 prs = [1,2]
 coi = [10,11,12,13,14,15,16,17,18]
 
 
 def tatakae():
+    user_input = input("Do you choose to fight it or run way? (Fight/Run)").capitalize()
     if user_input == "Fight":
         print("You chose to fight the monster.")
         encounter()
@@ -177,7 +177,6 @@ def tatakae():
     else:
         print("Don't matter if you can't spell you still gotta fight.")
         encounter()
-user_input = input("Do you choose to fight it or run way? (Fight/Run)").capitalize()
 tatakae()
 def paths():
     np = input("(Left/Right/Return)").capitalize()
@@ -198,7 +197,7 @@ def paths():
             elif buy == "Explore":
                 tatakae()
         elif numb == 2:
-            print("You found another Monster. (Fight/Run)")
+            print("You found another Monster.")
             tatakae()     
     elif np == "Right" :
         numb = random.choice(ran)
@@ -217,18 +216,27 @@ def paths():
             elif buy == "Explore":
                 tatakae()
         elif numb == 2:
-            print("You found another Monster. (Fight/Run)")
+            print("You found another Monster.")
             tatakae()
     elif np == "Return":
         print("You're back in town what do you want to do?")
         buy = input("(Shop/Explore)").capitalize()
         Ly.HP = Ly.max_HP
-        print(Ly.HP)
         if buy == "Shop":
-            shop()
+            x = input("(Enter 'Continue' to enter shop)").capitalize()
+            while x == "Continue" or x == "Again":
+                shop()
+                x = input("(Enter 'Again' to shop again, enter 'No' to continue exploring)").capitalize()
+                if x == "Again":
+                    x == "Again"
+                elif x == "No":
+                    break
+            print("You found another Monster.")
+            tatakae()
             
         elif buy == "Explore":
+            print("You found another Monster.")
             tatakae()
-    
-if Ly.HP >0:
-    paths()
+if Ly.HP >0:    
+    while Ly.HP >0:
+        paths()
