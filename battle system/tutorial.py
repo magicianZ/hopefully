@@ -1,6 +1,51 @@
 
 import random
 
+def puzzle1():
+    choices = ['Rock','Paper','Scissors']
+
+    player_choice = input("Rock paper scissors, what do you pick?").capitalize()
+    computer_choice = random.choice(choices)
+
+    while player_choice not in choices:
+        player_choice = input('Rock paper scissors, what do you pick?').capitalize()
+
+    if player_choice == computer_choice:
+        print('It was a tie')
+        print('You have won, you may continue..')
+        win = True
+        return win
+
+    elif player_choice == 'Rock':
+        if computer_choice == 'Paper':
+            print ('You lose')
+        elif computer_choice == 'Scissors':
+            print ('You win')
+            print('You have won, you may continue..')
+            win = True
+            return win
+
+    elif player_choice == 'Paper':
+        if computer_choice == 'Scissors':
+            print ('You lose')
+        elif computer_choice == 'Rock':
+            print ('You win')
+            print('You have won, you may continue..')
+            win = True
+            return win
+
+    elif player_choice == 'Scissors':
+        if computer_choice == 'Rock':
+            print ('You lose')
+    elif computer_choice == 'Paper':
+        print ('You win')
+        print('You have won, you may continue..')
+        win = True
+        return win
+
+
+
+
 class Player:
     Sharpening_Stone = 50
     Armor = 50
@@ -105,6 +150,10 @@ class Player:
 
         if weapon_choice == 'N':
             print('Ok cheapskate...')
+    
+    
+    def puzzle(self):
+        print('Welcome to my lair fool, you must complete 1 game against me to get past.')
 
 
 
@@ -135,25 +184,25 @@ def encounter():
     enemy = random.choice(enemies)
     while running:
         if LysTurn:
-            Ly.turn(enemy)
+            Ly.turn(NPC1)
             EnemiestURN = True
         if Ly.HP <= 0:
             print('You died')
             break
-        if enemy.HP <=0:
+        if NPC1.HP <=0:
             print('You won, the Mob died')
             Ly.add_gold(12)
             Ly.HP = Ly.max_HP
             enemies.remove(enemy)
             break
         if EnemiestURN:
-            enemy.AI(Ly)
+            NPC1.AI(Ly)
         else:
             LysTurn == True 
         if Ly.HP <= 0:
             print('You died')
             break
-        if enemy.HP <= 0:
+        if NPC1.HP <= 0:
             print('You won, the Mob died')
             Ly.add_gold(12)
             Ly.HP = Ly.max_HP
@@ -164,10 +213,21 @@ def shop():
 
     Ly.preview_items()
 
+
 print('Welcome to the tutorial, I will show you how to play the game.')
 print('---------------------------------')
 print('The attack system, you have basic attacks and magic attacks. Magic attacks require energy to pull off, if you do not have an energy point use an attack to gain one. If you use a magic attack with no energy points you will flail in exhaustation and your turn will be skipped. You will fight against monsters and they will fight you back, the HP of your character will be displayed. Now try against an monster.')
 encounter()
+print('Great job in your first battle, but it gets harder from here...')
+question = input('Would you look to go Left or Right')
+if question == 'Left' or 'Right':
+    puzzle1()
+else:
+    print('You encounter a puzzle')
+    puzzle1()
+if win == True:
+    encounter()
+
 
 
 
