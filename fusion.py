@@ -1,6 +1,7 @@
 
 import random
 
+
 class Player:
     Sharpening_Stone = 50
     Armor = 50
@@ -8,14 +9,14 @@ class Player:
     Magic_Armor = 50
     items = ['Sharpening_Stone','Armor','Wand','Magic_Armor']
    
-    def __init__(self,HP,Weapon,Name,Damage,energy_point,magic_damage,magic_health,gold,max_HP):
+    def __init__(self,HP,Name,Damage,energy_point,magic_damage,gold,max_HP):
         self.HP = HP
-        self.Weapon = Weapon
+        
         self.Name = Name
         self.Damage = Damage
         self.energy_point = energy_point
         self.magic_damage = magic_damage
-        self.magic_health = magic_health
+
         self.gold = gold
         self.max_HP = max_HP
 
@@ -30,24 +31,31 @@ class Player:
         
 
       
-        
+
+
+
     def magic_dmg(self,target):
-        if self.energy_point >0:
+        if self.energy_point > 0:
             damage_taken = target.HP - self.magic_damage
             target.HP = damage_taken
-            print(f'{target.Name} is now {target.HP} HP ')
+            print(f'{target.Name} is now {target.HP} HP and you have {self.energy_point} energy points ')
             print('-----------------------------')
+            self.energy_point = self.energy_point - 1
         else:
             print('Recover energy')
       
     
-            
+
+
+
     def turn(self,target):
         user_input = input(f'{self.Name}s turn - Would you like to - Attack or Magic').capitalize()
         if user_input == 'Attack':
             self.attack(target)
         elif user_input == 'Magic':
             self.magic_dmg(target)
+
+
 
 
 
@@ -67,6 +75,9 @@ class Player:
         self.gold = self.gold + amount
         print(f'{self.Name} now has {self.gold} gold')
 
+
+
+
     def preview_items(self):
         print(f'Welcome to the shop, our items are {self.items}')
         print('Sharpening stone increases your damage by 10, Armor increases your HP by 50, Magic Armor increases your magic health by 50 and the wand increases your magic damage by 100')
@@ -76,23 +87,20 @@ class Player:
             if what_item == 'Sharpening_Stone':
                 if self.gold >= 10:
                     self.Damage = self.Damage + self.Sharpening_Stone
-                    print(self.Damage)
+                    print(f'{self.Name} damage is now {self.Damage}')
               
             if what_item == 'Armor':
                 if self.gold >= 10:
                     self.max_HP = self.max_HP + self.Armor
-                    print(self.max_HP)
+                    print(f'{self.Name} HP is now {self.max_HP}')
                     self.HP = self.max_HP
                   
             if what_item == 'Wand':
                 if self.gold >= 10:
                     self.magic_damage = self.magic_damage + self.Wand
-                    print(self.magic_damage)
+                    print(f'{self.Name} magic damage is now {self.magic_damage}')
                   
-            if what_item == 'Magic_Armor':
-                if self.gold >= 10:
-                    self.magic_health = self.magic_health + self.Magic_Armor
-                    print(self.magic_health)
+
             
 
 
@@ -106,10 +114,11 @@ class Player:
       
         
 
-Ly = Player(100,"Sword","Lie Lee",50,3,100,50,100,100)
-NPC1 = Player(200,"Sword","NPC",10,3,20,100,0,200)
-NPC2 = Player(500,"Sword","NPC",10,3,20,100,0,200)
-NPC3 = Player(1000,"Sword","NPC",10,3,20,100,0,200)
+Ly = Player(100,"Lie Lee",50,3,100,100,100)
+NPC1 = Player(200,"NPC",10,3,20,0,200)
+NPC2 = Player(500,"NPC",10,3,20,0,200)
+NPC3 = Player(1000,"NPC",10,3,20,0,200)
+#HP,Name,Damage,energy_point,magic_damage,gold,max_HP
 
 
 
@@ -131,8 +140,6 @@ def encounter():
             EnemiestURN = True
         if Ly.HP <= 0:
             print('You died')
-            print("       GAME OVER")
-            print("-Diagnosis: Skill Issue-")
             break
         if enemy.HP <=0:
             print('You won, the Mob died')
@@ -146,8 +153,6 @@ def encounter():
             LysTurn == True 
         if Ly.HP <= 0:
             print('You died')
-            print("       GAME OVER")
-            print("-Diagnosis: Skill Issue-")
             break
         if enemy.HP <= 0:
             print('You won, the Mob died')
@@ -164,7 +169,7 @@ print("You're exploring a forest near the village you started at. While explorin
 ran = [1,2]
 prs = [1,2]
 coi = [10,11,12,13,14,15,16,17,18]
-
+def capitalism:
 
 def tatakae():
     user_input = input("Do you choose to fight it or run way? (Fight/Run)").capitalize()
@@ -172,7 +177,7 @@ def tatakae():
         print("You chose to fight the monster.")
         encounter()
     elif user_input == "Run":
-        print("Nah you ain't running, go fight that thing.")
+        print("You thought I was feeling you, you aint running bi-")
         encounter()
     else:
         print("Don't matter if you can't spell you still gotta fight.")
