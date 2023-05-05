@@ -5,7 +5,7 @@ def puzzle1():
     choices = ['Rock','Paper','Scissors']
 
     player_choice = input("Rock paper scissors, what do you pick?").capitalize()
-    computer_choice = "Scissors"
+    computer_choice = 'Rock'
 
     while player_choice not in choices:
         player_choice = input('Rock paper scissors, what do you pick?').capitalize()
@@ -70,8 +70,9 @@ class Player:
         damage_taken = target.HP - self.Damage
         target.HP = damage_taken
         self.energy_point = self.energy_point + 1
-        print(f'{target.Name} is {target.HP} HP and you have {self.energy_point}energy points')
-        print('-----------------------------')
+        print(f'{self.Name} has attacked {target.Name}. {target.Name} is {target.HP} HP and {self.Name} has {self.energy_point}energy points')
+        print('')
+        print('')
             
         
 
@@ -81,11 +82,12 @@ class Player:
 
     def magic_dmg(self,target):
         if self.energy_point > 0:
+            self.energy_point = self.energy_point - 1
             damage_taken = target.HP - self.magic_damage
             target.HP = damage_taken
-            print(f'{target.Name} is now {target.HP} HP and you have {self.energy_point} energy points ')
-            print('-----------------------------')
-            self.energy_point = self.energy_point - 1
+            print(f'{self.Name} has magic attacked {target.Name}. {target.Name} is now {target.HP} HP and {self.Name} has {self.energy_point} energy points ')
+            print('')
+            print('')
         else:
             print('Recover energy')
       
@@ -94,6 +96,7 @@ class Player:
 
 
     def turn(self,target):
+        print('---------------------------------------------------')
         user_input = input(f'{self.Name}s turn - Would you like to - Attack or Magic').capitalize()
         if user_input == 'Attack':
             self.attack(target)
@@ -109,7 +112,6 @@ class Player:
         get_lucky = random.choice(self.list)
         if self.energy_point > 0:
                 self.magic_dmg(Ly)
-                print('The NPC attacked you...')
         elif self.energy_point == 0:
                 self.attack(Ly)
              
@@ -182,6 +184,8 @@ enemies = [NPC1,NPC2,NPC3]
 
 
 def encounter():
+    print('You have encountered an enemy.')
+    print('--------------------------------------')
     enemy = random.choice(enemies)
     while running:
         if LysTurn:
@@ -216,18 +220,31 @@ def shop():
 
 
 print('Welcome to the tutorial, I will show you how to play the game.')
-print('---------------------------------')
+print('')
 print('The attack system, you have basic attacks and magic attacks. Magic attacks require energy to pull off, if you do not have an energy point use an attack to gain one. If you use a magic attack with no energy points you will flail in exhaustation and your turn will be skipped. You will fight against monsters and they will fight you back, the HP of your character will be displayed. Now try against an monster.')
+print('')
+print('')
 encounter()
 print('Great job in your first battle, but it gets harder from here...')
 question = input('Would you look to go Left or Right')
 if question == 'Left' or 'Right':
+    print('You stumble upon a castle, you can decide to enter')
+    print('')
+    print('HELLO LITTLE ONE, YOU HAVE ENTERED MY CASTLE. I USUALLY GOBBLE UP PEOPLE WHO ENTER, BUT YOU LOOK DIFFERENT. LETS PLAY A GAME, LOSING CAN RESULT IN DEATH. WHERE ARE MY *ROCKS*?')
     puzzle1()
 else:
     print('You encounter a puzzle')
     puzzle1()
 if win == True:
-    print('You beat me... I guess you can continue.')
+    print('You have gone past the entinity and are now going back to town.')
+    print('')
+    print('')
+    print('')
+
+    print('Congrulations, you have completed the tutorial.')
+
+
+
 
 
 
