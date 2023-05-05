@@ -36,11 +36,11 @@ class Player:
 
     def magic_dmg(self,target):
         if self.energy_point > 0:
+            self.energy_point = self.energy_point - 1
             damage_taken = target.HP - self.magic_damage
             target.HP = damage_taken
             print(f'{target.Name} is now {target.HP} HP and you have {self.energy_point} energy points ')
             print('-----------------------------')
-            self.energy_point = self.energy_point - 1
         else:
             print('Recover energy')
       
@@ -116,8 +116,8 @@ class Player:
 
 Ly = Player(100,"Lie Lee",50,3,100,100,100)
 NPC1 = Player(200,"NPC",10,3,20,0,200)
-NPC2 = Player(500,"NPC",10,3,20,0,200)
-NPC3 = Player(1000,"NPC",10,3,20,0,200)
+NPC2 = Player(350,"NPC",10,3,20,0,200)
+NPC3 = Player(400,"NPC",10,3,20,0,200)
 #HP,Name,Damage,energy_point,magic_damage,gold,max_HP
 
 
@@ -172,16 +172,17 @@ coi = [10,11,12,13,14,15,16,17,18]
 
 
 def tatakae():
-    user_input = input("Do you choose to fight it or run way? (Fight/Run)").capitalize()
-    if user_input == "Fight":
-        print("You chose to fight the monster.")
-        encounter()
-    elif user_input == "Run":
-        print("You thought I was feeling you, you aint running bi-")
-        encounter()
-    else:
-        print("Don't matter if you can't spell you still gotta fight.")
-        encounter()
+    if len(enemies) > 0:
+        user_input = input("Do you choose to fight it or run way? (Fight/Run)").capitalize()
+        if user_input == "Fight":
+            print("You chose to fight the monster.")
+            encounter()
+        elif user_input == "Run":
+            print("You thought I was feeling you, you aint running bi-")
+            encounter()
+        else:
+            print("Don't matter if you can't spell you still gotta fight.")
+            encounter()
 tatakae()
 def paths():
     np = input("(Left/Right/Return)").capitalize()
@@ -196,6 +197,7 @@ def paths():
             print("You're back in town what do you want to do?")
             buy = input("(Shop/Explore)").capitalize()
             Ly.HP = Ly.max_HP
+            Ly.energy_point == 3
             print(Ly.HP)
             if buy == "Shop":
                 shop()
@@ -215,6 +217,7 @@ def paths():
             print("You're back in town what do you want to do?")
             buy = input("(Shop/Explore)").capitalize()
             Ly.HP = Ly.max_HP
+            Ly.energy_point == 3
             print(Ly.HP)
             if buy == "Shop":
                 shop()
@@ -227,6 +230,7 @@ def paths():
         print("You're back in town what do you want to do?")
         buy = input("(Shop/Explore)").capitalize()
         Ly.HP = Ly.max_HP
+        Ly.energy_point == 3
         if buy == "Shop":
             x = input("(Enter 'Continue' to enter shop)").capitalize()
             while x == "Continue" or x == "Again":
@@ -242,6 +246,28 @@ def paths():
         elif buy == "Explore":
             print("You found another Monster.")
             tatakae()
-if Ly.HP >0:    
-    while Ly.HP >0:
-        paths()
+while enemies != []:
+    if Ly.HP >0:    
+        while Ly.HP >0:
+            paths()
+    elif enemies[0]:
+        break
+print("You have cleared the forest and it summons a portal , do you with to return to the town one last time or go straight into the portal?")
+input_ = input("(Return/Enter)").capitalize()
+if input_ == "Return":
+    print("You're back in town what do you want to do?")
+    buy = input("(Shop/Explore)").capitalize()
+    Ly.HP = Ly.max_HP
+    if buy == "Shop":
+        x = input("(Enter 'Continue' to enter shop)").capitalize()
+        while x == "Continue" or x == "Again":
+            shop()
+            x = input("(Enter 'Again' to shop again, enter 'No' to continue exploring)").capitalize()
+            if x == "Again":
+                x == "Again"
+            elif x == "No":
+                break
+        print("You go into the portal...")
+        print("N/A")
+elif input_ == "Enter":
+    print("you entered the portal")
