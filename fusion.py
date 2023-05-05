@@ -169,7 +169,7 @@ print("You're exploring a forest near the village you started at. While explorin
 ran = [1,2]
 prs = [1,2]
 coi = [10,11,12,13,14,15,16,17,18]
-def capitalism:
+
 
 def tatakae():
     user_input = input("Do you choose to fight it or run way? (Fight/Run)").capitalize()
