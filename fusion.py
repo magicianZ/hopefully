@@ -246,28 +246,32 @@ def paths():
         elif buy == "Explore":
             print("You found another Monster.")
             tatakae()
-while enemies != []:
+while enemies != 0:
+    if len(enemies) == 0:
+        break
     if Ly.HP >0:    
         while Ly.HP >0:
             paths()
-    elif enemies[0]:
-        break
-print("You have cleared the forest and it summons a portal , do you with to return to the town one last time or go straight into the portal?")
-input_ = input("(Return/Enter)").capitalize()
-if input_ == "Return":
-    print("You're back in town what do you want to do?")
-    buy = input("(Shop/Explore)").capitalize()
-    Ly.HP = Ly.max_HP
-    if buy == "Shop":
-        x = input("(Enter 'Continue' to enter shop)").capitalize()
-        while x == "Continue" or x == "Again":
-            shop()
-            x = input("(Enter 'Again' to shop again, enter 'No' to continue exploring)").capitalize()
-            if x == "Again":
-                x == "Again"
-            elif x == "No":
+            if len(enemies) == 0:
                 break
-        print("You go into the portal...")
-        print("N/A")
-elif input_ == "Enter":
-    print("you entered the portal")
+while len(enemies) == 0:
+    print("You have cleared the forest and it summons a portal , do you with to return to the town one last time or go straight into the portal?")
+    input_ = input("(Return/Enter)").capitalize()
+    if input_ == "Return":
+        print("You're back in town what do you want to do?")
+        buy = input("(Shop/Explore)").capitalize()
+        Ly.HP = Ly.max_HP
+        if buy == "Shop":
+            x = input("(Enter 'Continue' to enter shop)").capitalize()
+            while x == "Continue" or x == "Again":
+                shop()
+                x = input("(Enter 'Again' to shop again, enter 'No' to continue exploring)").capitalize()
+                if x == "Again":
+                    x == "Again"
+                elif x == "No":
+                    break
+            print("You go into the portal...")
+            print("N/A")
+    elif input_ == "Enter":
+        print("you entered the portal")
+        break
