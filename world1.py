@@ -175,3 +175,103 @@ def encounter():
             break
 
 
+print("You're exploring a forest near the village you started at. While exploring you encounter a monster, you can choose fight it or run away...")
+ran = [1,2]
+prs = [1,2]
+coi = [10,11,12,13,14,15,16,17,18]
+
+
+def tatakae():
+    if len(enemies) > 0:
+        user_input = input("Do you choose to fight it or run way? (Fight/Run)").capitalize()
+        if user_input == "Fight":
+            print("You chose to fight the monster.")
+            encounter()
+        elif user_input == "Run":
+            print("You thought I was feeling you, you aint running bi-")
+            encounter()
+        else:
+            print("Don't matter if you can't spell you still gotta fight.")
+            encounter()
+tatakae()
+def town():
+    print("You're back in town what do you want to do?")
+    buy = input("(Shop/Explore)").capitalize()
+    Ly.HP = Ly.max_HP
+    Ly.energy_point == 3
+    if buy == "Shop":
+        x = input("(Enter 'Continue' to enter shop)").capitalize()
+        while x == "Continue" or x == "Again":
+            shop()
+            x = input("(Enter 'Again' to shop again, enter 'No' to continue exploring)").capitalize()
+            if x == "Again":
+                x == "Again"
+            elif x == "No":
+                break
+        print("You found another Monster.")
+        tatakae()
+        
+    elif buy == "Explore":
+        print("You found another Monster.")
+        tatakae()
+def paths():
+    np = input("(Left/Right/Return)").capitalize()
+    if np == "Left" :
+        numb = random.choice(ran)
+        if numb == 1:
+            cooi = random.choice(coi)
+            print("--------------------------------")
+            print("You found a treasure chest!")
+            Ly.add_gold(cooi)
+            print("And return to the town...")
+            town()
+        elif numb == 2:
+            print("You found another Monster.")
+            tatakae()     
+    elif np == "Right" :
+        numb = random.choice(ran)
+        if numb == 1:
+            cooi = random.choice(coi)
+            print("--------------------------------")
+            print("You found a treasure chest!")
+            Ly.add_gold(cooi)
+            print("And return to the town...")
+            town()
+        elif numb == 2:
+            print("You found another Monster.")
+            tatakae()
+    elif np == "Return":
+        town()
+while enemies != 0:
+    if len(enemies) == 0:
+        break
+    if Ly.HP >0:    
+        while Ly.HP >0:
+            paths()
+            if len(enemies) == 0:
+                break
+while len(enemies) == 0:
+    print("You have cleared the forest and it summons a portal , do you with to return to the town one last time or go straight into the portal?")
+    input_ = input("(Return/Enter)").capitalize()
+    if input_ == "Return":
+        print("You're back in town what do you want to do?")
+        buy = input("(Shop/Explore)").capitalize()
+        Ly.HP = Ly.max_HP
+        if buy == "Shop":
+            x = input("(Enter 'Continue' to enter shop)").capitalize()
+            while x == "Continue" or x == "Again":
+                shop()
+                x = input("(Enter 'Again' to shop again, enter 'No' to continue exploring)").capitalize()
+                if x == "Again":
+                    x == "Again"
+                elif x == "No":
+                    break
+                elif x[1:] == "A":
+                    x == "Again"
+                elif x[1:] == "N":
+                    break  
+            print("You go into the portal...")
+            print("N/A")
+    elif input_ == "Enter":
+        print("you entered the portal")
+        break
