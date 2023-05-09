@@ -1,5 +1,6 @@
 from PIL import Image
 import random
+import time
 
 class Player:
     Sharpening_Stone = 50
@@ -7,8 +8,13 @@ class Player:
     Wand = 100
     Magic_Armor = 50
     items = ['Sharpening_Stone','Armor','Wand','Magic_Armor']
+    inventory_items = ['Smoothie','Protein_Bar','Potion']
+    Smoothie = 50
+    Protein_Bar = 30
+    Potion = 20
+    noah_rozin = True
    
-    def __init__(self,HP,Name,Damage,energy_point,magic_damage,gold,max_HP,max_magicdmg,max_attack):
+    def __init__(self,HP,Name,Damage,energy_point,magic_damage,gold,max_HP,max_magicdmg,max_attack,ultpoints,ultdmg,inventory):
         self.HP = HP
         
         self.Name = Name
@@ -19,6 +25,12 @@ class Player:
         self.max_magicdmg = max_magicdmg
         self.gold = gold
         self.max_HP = max_HP
+        self.ultpoints = ultpoints
+        self.ultdmg = ultdmg
+        self.inventory = inventory
+    def name(self):
+        name1 = input('What shall you be called adventurer?')
+        self.Name = name1
 
 
     def attack(self,target):
@@ -38,14 +50,64 @@ class Player:
     def magic_dmg(self,target):
         if self.energy_point > 0:
             self.energy_point = self.energy_point - 1
+            self.ultpoints = self.ultpoints + 1
             damage_taken = target.HP - self.magic_damage
             target.HP = damage_taken
             print(f'{self.Name} has magic attacked {target.Name}. {target.Name} is now {target.HP} HP and {self.Name} has {self.energy_point} energy points ')
             print('')
             print('')
+
         else:
             print('Recover energy')
-      
+    def ult(self,target):
+        if self.ultpoints >= 5:
+            self.ultpoints = 0
+            print('You charge up an ultimate, press F as much as you can to increase the damage of your ultimate!')
+            print('Be careful! If you press F for more than 5 seconds, your damage bonus will not count!')
+            time.sleep(3)
+            t1 = time.time()
+            thedmg = input('Go for it!')
+            t2 = time.time()
+            t = t1 - t2
+            
+            if t <= 5:
+                real_dmg = self.ultdmg + len(thedmg)
+                nuke_taken = target.HP - real_dmg
+                target.HP = nuke_taken
+                print(real_dmg)
+            if t > 5:
+                print('You have exceeded 5 seconds..')
+                nuke_taken = target.HP - real_dmg
+                target.HP = nuke_taken
+    def use_item(self):
+        while self.noah_rozin == True:
+            choicehm = input(f'You have chose to use an item, out of {self.inventory}, what item would you like to use? If you do not want to use an item, type N')
+            if 'Smoothie' in self.inventory:
+                if choicehm == 'Smoothie':
+                    self.HP = self.HP + self.Smoothie
+                    print(f'{self.Name} is now {self.HP} HP.')
+                    self.inventory.remove('Smoothie')
+            if 'Protein_Bar' in self.inventory:
+                if choicehm == 'Protein_Bar':
+                    self.HP = self.HP + self.Protein_Bar
+                    print(f'{self.Name} is now {self.HP} HP.')
+                    self.inventory.remove('Protein_Bar')
+            if 'Potion' in self.inventory:
+                if choicehm == 'Potion':
+                    self.HP = self.HP + self.Protein_Bar
+                    print(f'{self.Name} is now {self.HP} HP.')
+                    self.inventory.remove('Potion')
+            if choicehm == 'N':
+                break
+            else:
+                print('You do not have that item.')
+
+
+        
+
+
+
+
     
 
 
@@ -57,6 +119,8 @@ class Player:
             self.attack(target)
         elif user_input == 'Magic':
             self.magic_dmg(target)
+        elif user_input == 'Ult':
+            self.ult(target)
 
 
 
@@ -125,10 +189,10 @@ class Player:
       
         
 
-Ly = Player(100,"Lie Lee",50,3,100,100,100,100,50)
-NPC1 = Player(200,"NPC",10,3,20,0,200,10,20)
-NPC2 = Player(500,"NPC",10,3,20,0,200,10,20)
-NPC3 = Player(1000,"NPC",10,3,20,0,200,10,20)
+Character = Player(100,"idk",50,3,100,100,100,100,50,10,500,[])
+NPC1 = Player(200,"NPC",10,3,20,0,200,10,20,0,0,[])
+NPC2 = Player(500,"NPC",10,3,20,0,200,10,20,0,0,[])
+NPC3 = Player(1000,"NPC",10,3,20,0,200,10,20,0,0,[])
 #HP,Name,Damage,energy_point,magic_damage,gold,max_HP
 
 
@@ -173,11 +237,18 @@ def encounter():
             Ly.HP = Ly.max_HP
             enemies.remove(enemy)
             break
-encounter()
+
 def shop():
 
-    Ly.preview_items()
+    Character.preview_items()
 
-shop()
-encounter()
-shop()
+def item():
+    ok = random.choice(Character.inventory_items)
+    print(f'You have found an {ok}')
+    Character.inventory.append(ok)
+    print(Character.inventory)
+    
+
+item()
+Character.use_item()
+
