@@ -1,4 +1,4 @@
-
+import time
 import random
 win = False
 def puzzle1():
@@ -224,6 +224,7 @@ print('')
 print('The attack system, you have basic attacks and magic attacks. Magic attacks require energy to pull off, if you do not have an energy point use an attack to gain one. If you use a magic attack with no energy points you will flail in exhaustation and your turn will be skipped. You will fight against monsters and they will fight you back, the HP of your character will be displayed. Now try against an monster.')
 print('')
 print('')
+time.sleep(10)
 encounter()
 print('Great job in your first battle, but it gets harder from here...')
 question = input('Would you look to go Left or Right')

@@ -1,7 +1,6 @@
 from PIL import Image
 import random
 
-
 class Player:
     Sharpening_Stone = 50
     Armor = 50
@@ -9,14 +8,15 @@ class Player:
     Magic_Armor = 50
     items = ['Sharpening_Stone','Armor','Wand','Magic_Armor']
    
-    def __init__(self,HP,Name,Damage,energy_point,magic_damage,gold,max_HP):
+    def __init__(self,HP,Name,Damage,energy_point,magic_damage,gold,max_HP,max_magicdmg,max_attack):
         self.HP = HP
         
         self.Name = Name
         self.Damage = Damage
         self.energy_point = energy_point
         self.magic_damage = magic_damage
-
+        self.max_attack = max_attack
+        self.max_magicdmg = max_magicdmg
         self.gold = gold
         self.max_HP = max_HP
 
@@ -25,8 +25,9 @@ class Player:
         damage_taken = target.HP - self.Damage
         target.HP = damage_taken
         self.energy_point = self.energy_point + 1
-        print(f'{target.Name} is {target.HP} HP and you have {self.energy_point}energy points')
-        print('-----------------------------')
+        print(f'{self.Name} has attacked {target.Name}. {target.Name} is {target.HP} HP and {self.Name} has {self.energy_point}energy points')
+        print('')
+        print('')
             
         
 
@@ -36,11 +37,12 @@ class Player:
 
     def magic_dmg(self,target):
         if self.energy_point > 0:
+            self.energy_point = self.energy_point - 1
             damage_taken = target.HP - self.magic_damage
             target.HP = damage_taken
-            print(f'{target.Name} is now {target.HP} HP and you have {self.energy_point} energy points ')
-            print('-----------------------------')
-            self.energy_point = self.energy_point - 1
+            print(f'{self.Name} has magic attacked {target.Name}. {target.Name} is now {target.HP} HP and {self.Name} has {self.energy_point} energy points ')
+            print('')
+            print('')
         else:
             print('Recover energy')
       
@@ -49,6 +51,7 @@ class Player:
 
 
     def turn(self,target):
+        print('---------------------------------------------------')
         user_input = input(f'{self.Name}s turn - Would you like to - Attack or Magic').capitalize()
         if user_input == 'Attack':
             self.attack(target)
@@ -64,7 +67,6 @@ class Player:
         get_lucky = random.choice(self.list)
         if self.energy_point > 0:
                 self.magic_dmg(Ly)
-                print('The NPC attacked you...')
         elif self.energy_point == 0:
                 self.attack(Ly)
              
@@ -83,22 +85,30 @@ class Player:
         print('Sharpening stone increases your damage by 10, Armor increases your HP by 50, Magic Armor increases your magic health by 50 and the wand increases your magic damage by 100')
         weapon_choice = input('Would you like to buy anything? Y/N').capitalize()
         if weapon_choice == 'Y':
-            what_item = input('What item would you like to buy?')
+            what_item = input('What item would you like to buy?').capitalize()
             if what_item == 'Sharpening_Stone':
-                if self.gold >= 10:
-                    self.Damage = self.Damage + self.Sharpening_Stone
+                if self.gold >= 75:
+                    self.max_attack = self.Damage + self.Sharpening_Stone
                     print(f'{self.Name} damage is now {self.Damage}')
+                    self.Damage = self.max_attack
+                    self.gold = self.gold - 75
               
             if what_item == 'Armor':
-                if self.gold >= 10:
+                if self.gold >= 50:
                     self.max_HP = self.max_HP + self.Armor
                     print(f'{self.Name} HP is now {self.max_HP}')
                     self.HP = self.max_HP
+                    self.gold = self.gold - 50
                   
             if what_item == 'Wand':
-                if self.gold >= 10:
-                    self.magic_damage = self.magic_damage + self.Wand
+                if self.gold >= 100:
+                    self.max_magicdmg = self.magic_damage + self.Wand
                     print(f'{self.Name} magic damage is now {self.magic_damage}')
+                    self.gold = self.gold - 100
+                    self.magic_damage = self.max_magicdmg
+            if self.gold <= 0:
+                print('You have no gold, brokie...')
+        
                   
 
             
@@ -106,6 +116,7 @@ class Player:
 
         if weapon_choice == 'N':
             print('Ok cheapskate...')
+    
 
 
 
@@ -114,10 +125,10 @@ class Player:
       
         
 
-Ly = Player(100,"Lie Lee",50,3,100,100,100)
-NPC1 = Player(200,"NPC",10,3,20,0,200)
-NPC2 = Player(500,"NPC",10,3,20,0,200)
-NPC3 = Player(1000,"NPC",10,3,20,0,200)
+Ly = Player(100,"Lie Lee",50,3,100,100,100,100,50)
+NPC1 = Player(200,"NPC",10,3,20,0,200,10,20)
+NPC2 = Player(500,"NPC",10,3,20,0,200,10,20)
+NPC3 = Player(1000,"NPC",10,3,20,0,200,10,20)
 #HP,Name,Damage,energy_point,magic_damage,gold,max_HP
 
 
@@ -133,7 +144,9 @@ enemies = [NPC1,NPC2,NPC3]
 
 
 def encounter():
+    Ly.energy_point = 3
     enemy = random.choice(enemies)
+    enemy.energy_point = 3
     while running:
         if LysTurn:
             Ly.turn(enemy)
@@ -167,3 +180,4 @@ def shop():
 
 shop()
 encounter()
+shop()
