@@ -140,6 +140,8 @@ def encounter():
             EnemiestURN = True
         if Ly.HP <= 0:
             print('You died')
+            print("      ~ GAME OVER ~")
+            print("~ Diagnosis : Skill Issue ~")
             break
         if enemy.HP <=0:
             print('You won, the Mob died')
@@ -153,6 +155,8 @@ def encounter():
             LysTurn == True 
         if Ly.HP <= 0:
             print('You died')
+            print("      ~ GAME OVER ~")
+            print("~ Diagnosis : Skill Issue ~")
             break
         if enemy.HP <= 0:
             print('You won, the Mob died')
@@ -184,6 +188,26 @@ def tatakae():
             print("Don't matter if you can't spell you still gotta fight.")
             encounter()
 tatakae()
+def town():
+    print("You're back in town what do you want to do?")
+    buy = input("(Shop/Explore)").capitalize()
+    Ly.HP = Ly.max_HP
+    Ly.energy_point == 3
+    if buy == "Shop":
+        x = input("(Enter 'Continue' to enter shop)").capitalize()
+        while x == "Continue" or x == "Again":
+            shop()
+            x = input("(Enter 'Again' to shop again, enter 'No' to continue exploring)").capitalize()
+            if x == "Again":
+                x == "Again"
+            elif x == "No":
+                break
+        print("You found another Monster.")
+        tatakae()
+        
+    elif buy == "Explore":
+        print("You found another Monster.")
+        tatakae()
 def paths():
     np = input("(Left/Right/Return)").capitalize()
     if np == "Left" :
@@ -194,15 +218,7 @@ def paths():
             print("You found a treasure chest!")
             Ly.add_gold(cooi)
             print("And return to the town...")
-            print("You're back in town what do you want to do?")
-            buy = input("(Shop/Explore)").capitalize()
-            Ly.HP = Ly.max_HP
-            Ly.energy_point == 3
-            print(Ly.HP)
-            if buy == "Shop":
-                shop()
-            elif buy == "Explore":
-                tatakae()
+            town()
         elif numb == 2:
             print("You found another Monster.")
             tatakae()     
@@ -214,38 +230,12 @@ def paths():
             print("You found a treasure chest!")
             Ly.add_gold(cooi)
             print("And return to the town...")
-            print("You're back in town what do you want to do?")
-            buy = input("(Shop/Explore)").capitalize()
-            Ly.HP = Ly.max_HP
-            Ly.energy_point == 3
-            print(Ly.HP)
-            if buy == "Shop":
-                shop()
-            elif buy == "Explore":
-                tatakae()
+            town()
         elif numb == 2:
             print("You found another Monster.")
             tatakae()
     elif np == "Return":
-        print("You're back in town what do you want to do?")
-        buy = input("(Shop/Explore)").capitalize()
-        Ly.HP = Ly.max_HP
-        Ly.energy_point == 3
-        if buy == "Shop":
-            x = input("(Enter 'Continue' to enter shop)").capitalize()
-            while x == "Continue" or x == "Again":
-                shop()
-                x = input("(Enter 'Again' to shop again, enter 'No' to continue exploring)").capitalize()
-                if x == "Again":
-                    x == "Again"
-                elif x == "No":
-                    break
-            print("You found another Monster.")
-            tatakae()
-            
-        elif buy == "Explore":
-            print("You found another Monster.")
-            tatakae()
+        town()
 while enemies != 0:
     if len(enemies) == 0:
         break
@@ -270,6 +260,10 @@ while len(enemies) == 0:
                     x == "Again"
                 elif x == "No":
                     break
+                elif x[1:] == "A":
+                    x == "Again"
+                elif x[1:] == "N":
+                    break  
             print("You go into the portal...")
             print("N/A")
     elif input_ == "Enter":
