@@ -173,3 +173,5 @@ def encounter():
             Ly.HP = Ly.max_HP
             enemies.remove(enemy)
             break
+
+
