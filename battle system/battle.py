@@ -63,8 +63,11 @@ class Player:
         if self.ultpoints >= 5:
             self.ultpoints = 0
             print('You charge up an ultimate, press F as much as you can to increase the damage of your ultimate!')
+            time.sleep(1)
             print('Be careful! If you press F for more than 5 seconds, your damage bonus will not count!')
             time.sleep(3)
+            print('Get ready!')
+            time.sleep(2)
             t1 = time.time()
             thedmg = input('Go for it!')
             t2 = time.time()
@@ -208,33 +211,33 @@ enemies = [NPC1,NPC2,NPC3]
 
 
 def encounter():
-    Ly.energy_point = 3
+    Character.energy_point = 3
     enemy = random.choice(enemies)
     enemy.energy_point = 3
     while running:
         if LysTurn:
-            Ly.turn(enemy)
+            Character.turn(enemy)
             EnemiestURN = True
-        if Ly.HP <= 0:
+        if Character.HP <= 0:
             print('You died')
             break
         if enemy.HP <=0:
             print('You won, the Mob died')
-            Ly.add_gold(12)
-            Ly.HP = Ly.max_HP
+            Character.add_gold(12)
+            Character.HP = Character.max_HP
             enemies.remove(enemy)
             break
         if EnemiestURN:
-            enemy.AI(Ly)
+            enemy.AI(Character)
         else:
             LysTurn == True 
-        if Ly.HP <= 0:
+        if Character.HP <= 0:
             print('You died')
             break
         if enemy.HP <= 0:
             print('You won, the Mob died')
-            Ly.add_gold(12)
-            Ly.HP = Ly.max_HP
+            Character.add_gold(12)
+            Character.HP = Character.max_HP
             enemies.remove(enemy)
             break
 
@@ -247,8 +250,5 @@ def item():
     print(f'You have found an {ok}')
     Character.inventory.append(ok)
     print(Character.inventory)
-    
-
-item()
-Character.use_item()
-
+Character.name()
+Character.ult(NPC1)
