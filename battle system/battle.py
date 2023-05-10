@@ -72,14 +72,15 @@ class Player:
             thedmg = input('Go for it!')
             t2 = time.time()
             t = t1 - t2
-            
-            if t <= 5:
+            print(t)
+            if t>= -5:
                 real_dmg = self.ultdmg + len(thedmg)
                 nuke_taken = target.HP - real_dmg
                 target.HP = nuke_taken
                 print(real_dmg)
-            if t > 5:
+            elif t < -5:
                 print('You have exceeded 5 seconds..')
+                real_dmg = self.ultdmg
                 nuke_taken = target.HP - real_dmg
                 target.HP = nuke_taken
     def use_item(self):
@@ -117,7 +118,8 @@ class Player:
 
     def turn(self,target):
         print('---------------------------------------------------')
-        user_input = input(f'{self.Name}s turn - Would you like to - Attack or Magic').capitalize()
+        user_input = input(f'{self.Name}s turn - Would you like to - Regular Attack | Magic Attack or Ultimate. To Regular Attack type "Attack" , to Magic Attack type "Magic" and to Ultimate type "Ult"').capitalize()
+        
         if user_input == 'Attack':
             self.attack(target)
         elif user_input == 'Magic':
@@ -133,9 +135,9 @@ class Player:
         self.list = ['Attack','Attack','Attack']
         get_lucky = random.choice(self.list)
         if self.energy_point > 0:
-                self.magic_dmg(Ly)
+                self.magic_dmg(Character)
         elif self.energy_point == 0:
-                self.attack(Ly)
+                self.attack(Character)
              
        
           
@@ -192,8 +194,8 @@ class Player:
       
         
 
-Character = Player(100,"idk",50,3,100,100,100,100,50,10,500,[])
-NPC1 = Player(200,"NPC",10,3,20,0,200,10,20,0,0,[])
+Character = Player(10000,"idk",50,3,100,100,10000,100,50,10,500,[])
+NPC1 = Player(650,"NPC",10,3,20,0,200,10,20,0,0,[])
 NPC2 = Player(500,"NPC",10,3,20,0,200,10,20,0,0,[])
 NPC3 = Player(1000,"NPC",10,3,20,0,200,10,20,0,0,[])
 #HP,Name,Damage,energy_point,magic_damage,gold,max_HP
@@ -212,7 +214,7 @@ enemies = [NPC1,NPC2,NPC3]
 
 def encounter():
     Character.energy_point = 3
-    enemy = random.choice(enemies)
+    enemy = NPC1
     enemy.energy_point = 3
     while running:
         if LysTurn:
@@ -251,4 +253,4 @@ def item():
     Character.inventory.append(ok)
     print(Character.inventory)
 Character.name()
-Character.ult(NPC1)
+encounter()
