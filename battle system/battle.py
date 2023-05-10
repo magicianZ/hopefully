@@ -253,4 +253,4 @@ def item():
     Character.inventory.append(ok)
     print(Character.inventory)
 Character.name()
-encounter()
+Character.ult(NPC1)
