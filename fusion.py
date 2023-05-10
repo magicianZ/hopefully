@@ -78,6 +78,7 @@ class Player:
                 nuke_taken = target.HP - real_dmg
                 target.HP = nuke_taken
                 print(real_dmg)
+                print(target.HP)
             elif t < -5:
                 print('You have exceeded 5 seconds..')
                 real_dmg = self.ultdmg
@@ -195,9 +196,9 @@ class Player:
         
 
 Character = Player(10000,"idk",50,3,100,100,10000,100,50,10,500,[])
-NPC1 = Player(650,"NPC",10,3,20,0,200,10,20,0,0,[])
-NPC2 = Player(500,"NPC",10,3,20,0,200,10,20,0,0,[])
-NPC3 = Player(1000,"NPC",10,3,20,0,200,10,20,0,0,[])
+NPC1 = Player(1001,"NPC",10,3,20,0,200,10,20,0,0,[])
+NPC2 = Player(1002,"NPC",10,3,20,0,200,10,20,0,0,[])
+NPC3 = Player(1003,"NPC",10,3,20,0,200,10,20,0,0,[])
 #HP,Name,Damage,energy_point,magic_damage,gold,max_HP
 
 
@@ -214,7 +215,7 @@ enemies = [NPC1,NPC2,NPC3]
 
 def encounter():
     Character.energy_point = 3
-    enemy = NPC1
+    enemy = random.choice(enemies)
     enemy.energy_point = 3
     while running:
         if LysTurn:
@@ -256,7 +257,7 @@ Character.name()
 
 
 print("You're exploring a forest near the village you started at. While exploring you encounter a monster, you can choose fight it or run away...")
-ran = [1,2]
+ran = [1,2,3]
 prs = [1,2]
 coi = [10,11,12,13,14,15,16,17,18]
 
@@ -277,8 +278,8 @@ tatakae()
 def town():
     print("You're back in town what do you want to do?")
     buy = input("(Shop/Explore)").capitalize()
-    Ly.HP = Ly.max_HP
-    Ly.energy_point == 3
+    Character.HP = Character.max_HP
+    Character.energy_point == 3
     if buy == "Shop":
         x = input("(Enter 'Continue' to enter shop)").capitalize()
         while x == "Continue" or x == "Again":
@@ -302,21 +303,56 @@ def paths():
             cooi = random.choice(coi)
             print("--------------------------------")
             print("You found a treasure chest!")
-            Ly.add_gold(cooi)
+            Character.add_gold(cooi)
             print("And return to the town...")
             town()
         elif numb == 2:
             print("You found another Monster.")
-            tatakae()     
+            tatakae()
+        elif numb == 3:
+            item()
+            print("Go deeper or retreat?")
+            new_input = input("(Deeper/Return)").capitalize()
+            if new_input == "Deeper":
+                deep = random.choice(prs)
+                if deep == 1:
+                    cooi = random.choice(coi)
+                    print("--------------------------------")
+                    print("You found a treasure chest!")
+                    Character.add_gold(cooi)
+                    print("And return to the town...")
+                    town()
+                elif deep == 2:
+                    print("You found another Monster.")
+                    tatakae()
     elif np == "Right" :
         numb = random.choice(ran)
         if numb == 1:
             cooi = random.choice(coi)
             print("--------------------------------")
             print("You found a treasure chest!")
-            Ly.add_gold(cooi)
+            Character.add_gold(cooi)
             print("And return to the town...")
             town()
+        elif numb == 2:
+            print("You found another Monster.")
+            tatakae()
+        elif numb == 3:
+            item()
+            print("Go deeper or retreat?")
+            new_input = input("(Deeper/Return)").capitalize()
+            if new_input == "Deeper":
+                deep = random.choice(prs)
+                if deep == 1:
+                    cooi = random.choice(coi)
+                    print("--------------------------------")
+                    print("You found a treasure chest!")
+                    Character.add_gold(cooi)
+                    print("And return to the town...")
+                    town()
+                elif deep == 2:
+                    print("You found another Monster.")
+                    tatakae()      
         elif numb == 2:
             print("You found another Monster.")
             tatakae()
@@ -325,8 +361,8 @@ def paths():
 while enemies != 0:
     if len(enemies) == 0:
         break
-    if Ly.HP >0:    
-        while Ly.HP >0:
+    if Character.HP >0:    
+        while Character.HP >0:
             paths()
             if len(enemies) == 0:
                 break
@@ -336,7 +372,7 @@ while len(enemies) == 0:
     if input_ == "Return":
         print("You're back in town what do you want to do?")
         buy = input("(Shop/Explore)").capitalize()
-        Ly.HP = Ly.max_HP
+        Character.HP = Character.max_HP
         if buy == "Shop":
             x = input("(Enter 'Continue' to enter shop)").capitalize()
             while x == "Continue" or x == "Again":
