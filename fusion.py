@@ -1,6 +1,6 @@
 
 import random
-
+import time
 
 class Player:
     Sharpening_Stone = 50
@@ -8,25 +8,38 @@ class Player:
     Wand = 100
     Magic_Armor = 50
     items = ['Sharpening_Stone','Armor','Wand','Magic_Armor']
+    inventory_items = ['Smoothie','Protein_Bar','Potion']
+    Smoothie = 50
+    Protein_Bar = 30
+    Potion = 20
+    noah_rozin = True
    
-    def __init__(self,HP,Name,Damage,energy_point,magic_damage,gold,max_HP):
+    def __init__(self,HP,Name,Damage,energy_point,magic_damage,gold,max_HP,max_magicdmg,max_attack,ultpoints,ultdmg,inventory):
         self.HP = HP
         
         self.Name = Name
         self.Damage = Damage
         self.energy_point = energy_point
         self.magic_damage = magic_damage
-
+        self.max_attack = max_attack
+        self.max_magicdmg = max_magicdmg
         self.gold = gold
         self.max_HP = max_HP
+        self.ultpoints = ultpoints
+        self.ultdmg = ultdmg
+        self.inventory = inventory
+    def name(self):
+        name1 = input('What shall you be called adventurer?')
+        self.Name = name1
 
 
     def attack(self,target):
         damage_taken = target.HP - self.Damage
         target.HP = damage_taken
         self.energy_point = self.energy_point + 1
-        print(f'{target.Name} is {target.HP} HP and you have {self.energy_point}energy points')
-        print('-----------------------------')
+        print(f'{self.Name} has attacked {target.Name}. {target.Name} is {target.HP} HP and {self.Name} has {self.energy_point}energy points')
+        print('')
+        print('')
             
         
 
@@ -37,23 +50,82 @@ class Player:
     def magic_dmg(self,target):
         if self.energy_point > 0:
             self.energy_point = self.energy_point - 1
+            self.ultpoints = self.ultpoints + 1
             damage_taken = target.HP - self.magic_damage
             target.HP = damage_taken
-            print(f'{target.Name} is now {target.HP} HP and you have {self.energy_point} energy points ')
-            print('-----------------------------')
+            print(f'{self.Name} has magic attacked {target.Name}. {target.Name} is now {target.HP} HP and {self.Name} has {self.energy_point} energy points ')
+            print('')
+            print('')
+
         else:
             print('Recover energy')
-      
+    def ult(self,target):
+        if self.ultpoints >= 5:
+            self.ultpoints = 0
+            print('You charge up an ultimate, press F as much as you can to increase the damage of your ultimate!')
+            time.sleep(1)
+            print('Be careful! If you press F for more than 5 seconds, your damage bonus will not count!')
+            time.sleep(3)
+            print('Get ready!')
+            time.sleep(2)
+            t1 = time.time()
+            thedmg = input('Go for it!')
+            t2 = time.time()
+            t = t1 - t2
+            print(t)
+            if t>= -5:
+                real_dmg = self.ultdmg + len(thedmg)
+                nuke_taken = target.HP - real_dmg
+                target.HP = nuke_taken
+                print(real_dmg)
+            elif t < -5:
+                print('You have exceeded 5 seconds..')
+                real_dmg = self.ultdmg
+                nuke_taken = target.HP - real_dmg
+                target.HP = nuke_taken
+    def use_item(self):
+        while self.noah_rozin == True:
+            choicehm = input(f'You have chose to use an item, out of {self.inventory}, what item would you like to use? If you do not want to use an item, type N')
+            if 'Smoothie' in self.inventory:
+                if choicehm == 'Smoothie':
+                    self.HP = self.HP + self.Smoothie
+                    print(f'{self.Name} is now {self.HP} HP.')
+                    self.inventory.remove('Smoothie')
+            if 'Protein_Bar' in self.inventory:
+                if choicehm == 'Protein_Bar':
+                    self.HP = self.HP + self.Protein_Bar
+                    print(f'{self.Name} is now {self.HP} HP.')
+                    self.inventory.remove('Protein_Bar')
+            if 'Potion' in self.inventory:
+                if choicehm == 'Potion':
+                    self.HP = self.HP + self.Protein_Bar
+                    print(f'{self.Name} is now {self.HP} HP.')
+                    self.inventory.remove('Potion')
+            if choicehm == 'N':
+                break
+            else:
+                print('You do not have that item.')
+
+
+        
+
+
+
+
     
 
 
 
     def turn(self,target):
-        user_input = input(f'{self.Name}s turn - Would you like to - Attack or Magic').capitalize()
+        print('---------------------------------------------------')
+        user_input = input(f'{self.Name}s turn - Would you like to - Regular Attack | Magic Attack or Ultimate. To Regular Attack type "Attack" , to Magic Attack type "Magic" and to Ultimate type "Ult"').capitalize()
+        
         if user_input == 'Attack':
             self.attack(target)
         elif user_input == 'Magic':
             self.magic_dmg(target)
+        elif user_input == 'Ult':
+            self.ult(target)
 
 
 
@@ -63,10 +135,9 @@ class Player:
         self.list = ['Attack','Attack','Attack']
         get_lucky = random.choice(self.list)
         if self.energy_point > 0:
-                self.magic_dmg(Ly)
-                print('The NPC attacked you...')
+                self.magic_dmg(Character)
         elif self.energy_point == 0:
-                self.attack(Ly)
+                self.attack(Character)
              
        
           
@@ -83,22 +154,30 @@ class Player:
         print('Sharpening stone increases your damage by 10, Armor increases your HP by 50, Magic Armor increases your magic health by 50 and the wand increases your magic damage by 100')
         weapon_choice = input('Would you like to buy anything? Y/N').capitalize()
         if weapon_choice == 'Y':
-            what_item = input('What item would you like to buy?')
+            what_item = input('What item would you like to buy?').capitalize()
             if what_item == 'Sharpening_Stone':
-                if self.gold >= 10:
-                    self.Damage = self.Damage + self.Sharpening_Stone
+                if self.gold >= 75:
+                    self.max_attack = self.Damage + self.Sharpening_Stone
                     print(f'{self.Name} damage is now {self.Damage}')
+                    self.Damage = self.max_attack
+                    self.gold = self.gold - 75
               
             if what_item == 'Armor':
-                if self.gold >= 10:
+                if self.gold >= 50:
                     self.max_HP = self.max_HP + self.Armor
                     print(f'{self.Name} HP is now {self.max_HP}')
                     self.HP = self.max_HP
+                    self.gold = self.gold - 50
                   
             if what_item == 'Wand':
-                if self.gold >= 10:
-                    self.magic_damage = self.magic_damage + self.Wand
+                if self.gold >= 100:
+                    self.max_magicdmg = self.magic_damage + self.Wand
                     print(f'{self.Name} magic damage is now {self.magic_damage}')
+                    self.gold = self.gold - 100
+                    self.magic_damage = self.max_magicdmg
+            if self.gold <= 0:
+                print('You have no gold, brokie...')
+        
                   
 
             
@@ -106,6 +185,7 @@ class Player:
 
         if weapon_choice == 'N':
             print('Ok cheapskate...')
+    
 
 
 
@@ -114,10 +194,10 @@ class Player:
       
         
 
-Ly = Player(100,"Lie Lee",50,3,100,100,100)
-NPC1 = Player(200,"NPC",10,3,20,0,200)
-NPC2 = Player(350,"NPC",10,3,20,0,200)
-NPC3 = Player(400,"NPC",10,3,20,0,200)
+Character = Player(10000,"idk",50,3,100,100,10000,100,50,10,500,[])
+NPC1 = Player(650,"NPC",10,3,20,0,200,10,20,0,0,[])
+NPC2 = Player(500,"NPC",10,3,20,0,200,10,20,0,0,[])
+NPC3 = Player(1000,"NPC",10,3,20,0,200,10,20,0,0,[])
 #HP,Name,Damage,energy_point,magic_damage,gold,max_HP
 
 
@@ -133,40 +213,46 @@ enemies = [NPC1,NPC2,NPC3]
 
 
 def encounter():
-    enemy = random.choice(enemies)
+    Character.energy_point = 3
+    enemy = NPC1
+    enemy.energy_point = 3
     while running:
         if LysTurn:
-            Ly.turn(enemy)
+            Character.turn(enemy)
             EnemiestURN = True
-        if Ly.HP <= 0:
+        if Character.HP <= 0:
             print('You died')
-            print("      ~ GAME OVER ~")
-            print("~ Diagnosis : Skill Issue ~")
             break
         if enemy.HP <=0:
             print('You won, the Mob died')
-            Ly.add_gold(12)
-            Ly.HP = Ly.max_HP
+            Character.add_gold(12)
+            Character.HP = Character.max_HP
             enemies.remove(enemy)
             break
         if EnemiestURN:
-            enemy.AI(Ly)
+            enemy.AI(Character)
         else:
             LysTurn == True 
-        if Ly.HP <= 0:
+        if Character.HP <= 0:
             print('You died')
-            print("      ~ GAME OVER ~")
-            print("~ Diagnosis : Skill Issue ~")
             break
         if enemy.HP <= 0:
             print('You won, the Mob died')
-            Ly.add_gold(12)
-            Ly.HP = Ly.max_HP
+            Character.add_gold(12)
+            Character.HP = Character.max_HP
             enemies.remove(enemy)
             break
+
 def shop():
 
-    Ly.preview_items()
+    Character.preview_items()
+
+def item():
+    ok = random.choice(Character.inventory_items)
+    print(f'You have found an {ok}')
+    Character.inventory.append(ok)
+    print(Character.inventory)
+Character.name()
 
 
 print("You're exploring a forest near the village you started at. While exploring you encounter a monster, you can choose fight it or run away...")
