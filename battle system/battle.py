@@ -72,17 +72,20 @@ class Player:
             thedmg = input('Go for it!')
             t2 = time.time()
             t = t1 - t2
-            print(t)
+            
             if t>= -5:
                 real_dmg = self.ultdmg + len(thedmg)
                 nuke_taken = target.HP - real_dmg
                 target.HP = nuke_taken
                 print(real_dmg)
+                print (f'{target.Name} is now {target.HP} HP')
             elif t < -5:
                 print('You have exceeded 5 seconds..')
                 real_dmg = self.ultdmg
                 nuke_taken = target.HP - real_dmg
                 target.HP = nuke_taken
+                print (f'{target.Name} is now {target.HP} HP')
+                print('--------------------------------------------')
     def use_item(self):
         while self.noah_rozin == True:
             choicehm = input(f'You have chose to use an item, out of {self.inventory}, what item would you like to use? If you do not want to use an item, type N')
@@ -118,7 +121,7 @@ class Player:
 
     def turn(self,target):
         print('---------------------------------------------------')
-        user_input = input(f'{self.Name}s turn - Would you like to - Regular Attack | Magic Attack or Ultimate. To Regular Attack type "Attack" , to Magic Attack type "Magic" and to Ultimate type "Ult"').capitalize()
+        user_input = input(f'{self.Name}s turn - Would you like to - Regular Attack | Magic Attack | Ultimate or Use an Item. To Regular Attack type "Attack" , to Magic Attack type "Magic" to Ultimate type "Ult" to Use an Item, type "Item').capitalize()
         
         if user_input == 'Attack':
             self.attack(target)
@@ -126,6 +129,8 @@ class Player:
             self.magic_dmg(target)
         elif user_input == 'Ult':
             self.ult(target)
+        elif user_input == 'Item':
+            self.use_item()
 
 
 
@@ -177,14 +182,28 @@ class Player:
                     self.magic_damage = self.max_magicdmg
             if self.gold <= 0:
                 print('You have no gold, brokie...')
-        
-                  
-
-            
-
-
         if weapon_choice == 'N':
             print('Ok cheapskate...')
+    def selling(self):
+        print(f'It seems you have {self.inventory}')
+        sell = input('Do you wish to sell?')
+        if sell == 'Y':
+            the_Sell = input('Would you like to sell, ALL YOUR ITEMS? Y or N')
+            if the_Sell == 'Y':
+                length = len(self.inventory)
+                final_cost = 50 * length
+                self.gold =  self.gold + final_cost
+                self.inventory.clear()
+                print(self.inventory)
+                print(self.gold)
+                print(f'Your gold is now {self.gold}')
+            if the_Sell == 'N':
+                print('Goodbye')
+        
+
+        if sell == 'N':
+            print('Ok then, goodbye!')
+
     
 
 
@@ -252,5 +271,17 @@ def item():
     print(f'You have found an {ok}')
     Character.inventory.append(ok)
     print(Character.inventory)
-Character.name()
-Character.ult(NPC1)
+
+
+
+
+
+
+
+item()
+item()
+item()
+item()
+item()
+item()
+Character.selling()
