@@ -52,7 +52,7 @@ class Player:
             self.ultpoints = self.ultpoints + 1
             damage_taken = target.HP - self.magic_damage
             target.HP = damage_taken
-            print(f'{self.Name} has magic attacked {target.Name}. {target.Name} is now {target.HP} HP and {self.Name} has {self.energy_point} energy points ')
+            print(f'{self.Name} has magic attacked {target.Name}. {target.Name} is now {target.HP} HP and {self.Name} has {self.energy_point} energy points and {self.ultpoints} points')
             print('')
             print('')
 
@@ -212,10 +212,10 @@ class Player:
       
         
 
-Character = Player(10000,"idk",50,3,100,100,10000,100,50,10,500,[])
-NPC1 = Player(650,"NPC",10,3,20,0,200,10,20,0,0,[])
+Character = Player(150,"idk",50,3,100,100,150,100,50,10,500,[])
+NPC1 = Player(400,"NPC",10,3,20,0,200,10,20,0,0,[])
 NPC2 = Player(500,"NPC",10,3,20,0,200,10,20,0,0,[])
-NPC3 = Player(1000,"NPC",10,3,20,0,200,10,20,0,0,[])
+NPC3 = Player(550,"NPC",10,3,20,0,200,10,20,0,0,[])
 #HP,Name,Damage,energy_point,magic_damage,gold,max_HP
 
 
@@ -232,7 +232,7 @@ enemies = [NPC1,NPC2,NPC3]
 
 def encounter():
     Character.energy_point = 3
-    enemy = NPC1
+    enemy = random.choice(enemies)
     enemy.energy_point = 3
     while running:
         if LysTurn:
@@ -271,11 +271,28 @@ def item():
     Character.inventory.append(ok)
     print(Character.inventory)
 
-
-print("You're exploring a forest near the village you started at. While exploring you encounter a monster, you can choose fight it or run away...")
+print("You are strolling around town, you can go to the shop or venture into the wilderness.")
+start = "nogo"
+first = input("(Shop/Explore)").capitalize()
+Character.HP = Character.max_HP
+Character.energy_point == 3
+if first == "Shop":
+    xy = input("(Enter 'Continue' to enter shop)").capitalize()
+    while xy == "Continue" or xy == "Again":
+        shop()
+        xy = input("(Enter 'Again' to shop again, enter 'No' to continue exploring)").capitalize()
+        if xy == "Again":
+            xy == "Again"
+        elif xy == "No":
+            start = "go"
+            break
+elif first == "Explore":
+    start = "go"
+if start == "go":    
+    print("You're exploring a forest near the village you started at. While exploring you encounter a monster, you can choose fight it or run away...")
 ran = [1,2,3]
 prs = [1,2]
-coi = [10,11,12,13,14,15,16,17,18]
+coi = list(range(10,19))
 
 
 def tatakae():
@@ -290,7 +307,6 @@ def tatakae():
         else:
             print("Don't matter if you can't spell you still gotta fight.")
             encounter()
-tatakae()
 def town():
     print("You're back in town what do you want to do?")
     buy = input("(Shop/Explore)").capitalize()
@@ -374,6 +390,7 @@ def paths():
             tatakae()
     elif np == "Return":
         town()
+tatakae()
 while enemies != 0:
     if len(enemies) == 0:
         break
