@@ -1,4 +1,3 @@
-
 import random
 import time
 
@@ -72,18 +71,20 @@ class Player:
             thedmg = input('Go for it!')
             t2 = time.time()
             t = t1 - t2
-            print(t)
+            
             if t>= -5:
                 real_dmg = self.ultdmg + len(thedmg)
                 nuke_taken = target.HP - real_dmg
                 target.HP = nuke_taken
                 print(real_dmg)
-                print(target.HP)
+                print (f'{target.Name} is now {target.HP} HP')
             elif t < -5:
                 print('You have exceeded 5 seconds..')
                 real_dmg = self.ultdmg
                 nuke_taken = target.HP - real_dmg
                 target.HP = nuke_taken
+                print (f'{target.Name} is now {target.HP} HP')
+                print('--------------------------------------------')
     def use_item(self):
         while self.noah_rozin == True:
             choicehm = input(f'You have chose to use an item, out of {self.inventory}, what item would you like to use? If you do not want to use an item, type N')
@@ -119,7 +120,7 @@ class Player:
 
     def turn(self,target):
         print('---------------------------------------------------')
-        user_input = input(f'{self.Name}s turn - Would you like to - Regular Attack | Magic Attack or Ultimate. To Regular Attack type "Attack" , to Magic Attack type "Magic" and to Ultimate type "Ult"').capitalize()
+        user_input = input(f'{self.Name}s turn - Would you like to - Regular Attack | Magic Attack | Ultimate or Use an Item. To Regular Attack type "Attack" , to Magic Attack type "Magic" to Ultimate type "Ult" to Use an Item, type "Item').capitalize()
         
         if user_input == 'Attack':
             self.attack(target)
@@ -127,6 +128,8 @@ class Player:
             self.magic_dmg(target)
         elif user_input == 'Ult':
             self.ult(target)
+        elif user_input == 'Item':
+            self.use_item()
 
 
 
@@ -178,14 +181,28 @@ class Player:
                     self.magic_damage = self.max_magicdmg
             if self.gold <= 0:
                 print('You have no gold, brokie...')
-        
-                  
-
-            
-
-
         if weapon_choice == 'N':
             print('Ok cheapskate...')
+    def selling(self):
+        print(f'It seems you have {self.inventory}')
+        sell = input('Do you wish to sell?')
+        if sell == 'Y':
+            the_Sell = input('Would you like to sell, ALL YOUR ITEMS? Y or N')
+            if the_Sell == 'Y':
+                length = len(self.inventory)
+                final_cost = 50 * length
+                self.gold =  self.gold + final_cost
+                self.inventory.clear()
+                print(self.inventory)
+                print(self.gold)
+                print(f'Your gold is now {self.gold}')
+            if the_Sell == 'N':
+                print('Goodbye')
+        
+
+        if sell == 'N':
+            print('Ok then, goodbye!')
+
     
 
 
@@ -196,9 +213,9 @@ class Player:
         
 
 Character = Player(10000,"idk",50,3,100,100,10000,100,50,10,500,[])
-NPC1 = Player(1001,"NPC",10,3,20,0,200,10,20,0,0,[])
-NPC2 = Player(1002,"NPC",10,3,20,0,200,10,20,0,0,[])
-NPC3 = Player(1003,"NPC",10,3,20,0,200,10,20,0,0,[])
+NPC1 = Player(650,"NPC",10,3,20,0,200,10,20,0,0,[])
+NPC2 = Player(500,"NPC",10,3,20,0,200,10,20,0,0,[])
+NPC3 = Player(1000,"NPC",10,3,20,0,200,10,20,0,0,[])
 #HP,Name,Damage,energy_point,magic_damage,gold,max_HP
 
 
@@ -215,7 +232,7 @@ enemies = [NPC1,NPC2,NPC3]
 
 def encounter():
     Character.energy_point = 3
-    enemy = random.choice(enemies)
+    enemy = NPC1
     enemy.energy_point = 3
     while running:
         if LysTurn:
@@ -253,7 +270,6 @@ def item():
     print(f'You have found an {ok}')
     Character.inventory.append(ok)
     print(Character.inventory)
-Character.name()
 
 
 print("You're exploring a forest near the village you started at. While exploring you encounter a monster, you can choose fight it or run away...")
