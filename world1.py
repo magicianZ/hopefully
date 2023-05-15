@@ -1,6 +1,5 @@
-from PIL import Image
 import random
-
+import time
 class Player:
     Sharpening_Stone = 50
     Armor = 50
@@ -86,6 +85,8 @@ class Player:
         weapon_choice = input('Would you like to buy anything? Y/N').capitalize()
         if weapon_choice == 'Y':
             what_item = input('What item would you like to buy?').capitalize()
+            if self.gold <= 0:
+                print('You have no gold, brokie...')
             if what_item == 'Sharpening_Stone':
                 if self.gold >= 75:
                     self.max_attack = self.Damage + self.Sharpening_Stone
@@ -106,16 +107,23 @@ class Player:
                     print(f'{self.Name} magic damage is now {self.magic_damage}')
                     self.gold = self.gold - 100
                     self.magic_damage = self.max_magicdmg
-            if self.gold <= 0:
-                print('You have no gold, brokie...')
+        if weapon_choice == 'N':
+            print('Ok cheapskate...')
+    def medic(self):
+        print('You have fallen to the monsters of the world.')
+        time.sleep(3)
+        print('You open your eyes and see yourself in a hospital bed.')
+        time.sleep(1)
+        self.HP = self.max_HP
+        print(f'{self.Name} has recovered, {self.Name} is now {self.HP}')
+      
         
                   
 
             
 
 
-        if weapon_choice == 'N':
-            print('Ok cheapskate...')
+             
     
 
 
@@ -125,7 +133,7 @@ class Player:
       
         
 
-Ly = Player(100,"Lie Lee",50,3,100,100,100,100,50)
+Character = Player(100,"Lie Lee",50,3,100,100,100,100,50)
 NPC1 = Player(200,"NPC",10,3,20,0,200,10,20)
 NPC2 = Player(500,"NPC",10,3,20,0,200,10,20)
 NPC3 = Player(1000,"NPC",10,3,20,0,200,10,20)
@@ -138,6 +146,9 @@ LysTurn = True
 EnemiestURN = False
 running = True
 enemies = [NPC1,NPC2,NPC3]
+
+
+
 
 
 
@@ -166,6 +177,7 @@ def encounter():
             LysTurn == True 
         if Ly.HP <= 0:
             print('You died')
+            #needs a way to recover hp when dead
             break
         if enemy.HP <= 0:
             print('You won, the Mob died')
@@ -173,105 +185,36 @@ def encounter():
             Ly.HP = Ly.max_HP
             enemies.remove(enemy)
             break
-
-
-print("You're exploring a forest near the village you started at. While exploring you encounter a monster, you can choose fight it or run away...")
-ran = [1,2]
-prs = [1,2]
-coi = [10,11,12,13,14,15,16,17,18]
-
-
-def tatakae():
-    if len(enemies) > 0:
-        user_input = input("Do you choose to fight it or run way? (Fight/Run)").capitalize()
-        if user_input == "Fight":
-            print("You chose to fight the monster.")
-            encounter()
-        elif user_input == "Run":
-            print("You thought I was feeling you, you aint running bi-")
-            encounter()
+def shop():
+    Ly.preview_items()
+def boss():
+    print('You encounter a large foe, good luck.')
+    Character.energy_point = 3
+    enemy = Boss
+    enemy.energy_point = 3
+    while running:
+        if LysTurn:
+            Character.turn(enemy)
+            EnemiestURN = True
+        if Character.HP <= 0:
+            print('You died')
+            break
+        if enemy.HP <=0:
+            print('You won, the Mob died')
+            Character.add_gold(1000)
+            Character.HP = Character.max_HP
+            enemies.remove(enemy)
+            break
+        if EnemiestURN:
+            enemy.AI(Character)
         else:
-            print("Don't matter if you can't spell you still gotta fight.")
-            encounter()
-tatakae()
-def town():
-    print("You're back in town what do you want to do?")
-    buy = input("(Shop/Explore)").capitalize()
-    Ly.HP = Ly.max_HP
-    Ly.energy_point == 3
-    if buy == "Shop":
-        x = input("(Enter 'Continue' to enter shop)").capitalize()
-        while x == "Continue" or x == "Again":
-            shop()
-            x = input("(Enter 'Again' to shop again, enter 'No' to continue exploring)").capitalize()
-            if x == "Again":
-                x == "Again"
-            elif x == "No":
-                break
-        print("You found another Monster.")
-        tatakae()
-        
-    elif buy == "Explore":
-        print("You found another Monster.")
-        tatakae()
-def paths():
-    np = input("(Left/Right/Return)").capitalize()
-    if np == "Left" :
-        numb = random.choice(ran)
-        if numb == 1:
-            cooi = random.choice(coi)
-            print("--------------------------------")
-            print("You found a treasure chest!")
-            Ly.add_gold(cooi)
-            print("And return to the town...")
-            town()
-        elif numb == 2:
-            print("You found another Monster.")
-            tatakae()     
-    elif np == "Right" :
-        numb = random.choice(ran)
-        if numb == 1:
-            cooi = random.choice(coi)
-            print("--------------------------------")
-            print("You found a treasure chest!")
-            Ly.add_gold(cooi)
-            print("And return to the town...")
-            town()
-        elif numb == 2:
-            print("You found another Monster.")
-            tatakae()
-    elif np == "Return":
-        town()
-while enemies != 0:
-    if len(enemies) == 0:
-        break
-    if Ly.HP >0:    
-        while Ly.HP >0:
-            paths()
-            if len(enemies) == 0:
-                break
-while len(enemies) == 0:
-    print("You have cleared the forest and it summons a portal , do you with to return to the town one last time or go straight into the portal?")
-    input_ = input("(Return/Enter)").capitalize()
-    if input_ == "Return":
-        print("You're back in town what do you want to do?")
-        buy = input("(Shop/Explore)").capitalize()
-        Ly.HP = Ly.max_HP
-        if buy == "Shop":
-            x = input("(Enter 'Continue' to enter shop)").capitalize()
-            while x == "Continue" or x == "Again":
-                shop()
-                x = input("(Enter 'Again' to shop again, enter 'No' to continue exploring)").capitalize()
-                if x == "Again":
-                    x == "Again"
-                elif x == "No":
-                    break
-                elif x[1:] == "A":
-                    x == "Again"
-                elif x[1:] == "N":
-                    break  
-            print("You go into the portal...")
-            print("N/A")
-    elif input_ == "Enter":
-        print("you entered the portal")
-        break
+            LysTurn == True 
+        if Character.HP <= 0:
+            print('You died')
+            break
+        if enemy.HP <= 0:
+            print('You won, the Mob died')
+            Character.add_gold(1000)
+            Character.HP = Character.max_HP
+            enemies.remove(enemy)
+            break
