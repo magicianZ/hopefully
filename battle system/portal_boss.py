@@ -53,7 +53,7 @@ class Player:
             self.ultpoints = self.ultpoints + 1
             damage_taken = target.HP - self.magic_damage
             target.HP = damage_taken
-            print(f'{self.Name} has magic attacked {target.Name}. {target.Name} is now {target.HP} HP and {self.Name} has {self.energy_point} energy points ')
+            print(f'{self.Name} has magic attacked {target.Name}. {target.Name} is now {target.HP} HP and {self.Name} has {self.energy_point} energy points and {self.ultpoints} points ')
             print('')
             print('')
 
@@ -272,7 +272,7 @@ def boss():
             break
         if enemy.HP <=0:
             print('You won, the Mob died')
-            Character.add_gold(12)
+            Character.add_gold(1000)
             Character.HP = Character.max_HP
             enemies.remove(enemy)
             break
@@ -285,7 +285,7 @@ def boss():
             break
         if enemy.HP <= 0:
             print('You won, the Mob died')
-            Character.add_gold(12)
+            Character.add_gold(1000)
             Character.HP = Character.max_HP
             enemies.remove(enemy)
             break
