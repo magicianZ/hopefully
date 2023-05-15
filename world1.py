@@ -2,9 +2,9 @@ import random
 import time
 
 class Player:
-    Sharpening_Stone = 50
-    Armor = 50
-    Wand = 100
+    Sharpening_Stone = 100
+    Armor = 150
+    Wand = 150
     Magic_Armor = 50
     items = ['Sharpening_Stone','Armor','Wand','Magic_Armor']
     inventory_items = ['Smoothie','Protein_Bar','Potion']
@@ -159,28 +159,31 @@ class Player:
         weapon_choice = input('Would you like to buy anything? Y/N').capitalize()
         if weapon_choice == 'Y':
             what_item = input('What item would you like to buy?').capitalize()
+            if self.gold <= 0:
+                print('You have no gold, brokie...')
             if what_item == 'Sharpening_Stone':
-                if self.gold >= 75:
+                if self.gold >= 50:
                     self.max_attack = self.Damage + self.Sharpening_Stone
-                    print(f'{self.Name} damage is now {self.Damage}')
                     self.Damage = self.max_attack
-                    self.gold = self.gold - 75
+                    print(f'{self.Name} damage is now {self.Damage}')
+                    self.gold = self.gold - 50
+                    print(f'You now have {self.gold} gold')
               
             if what_item == 'Armor':
-                if self.gold >= 50:
+                if self.gold >= 100:
                     self.max_HP = self.max_HP + self.Armor
-                    print(f'{self.Name} HP is now {self.max_HP}')
                     self.HP = self.max_HP
-                    self.gold = self.gold - 50
+                    print(f'{self.Name} HP is now {self.max_HP}')
+                    self.gold = self.gold - 100
+                    print(f'You now have {self.gold} gold')
                   
             if what_item == 'Wand':
                 if self.gold >= 100:
                     self.max_magicdmg = self.magic_damage + self.Wand
+                    self.magic_damage = self.max_magicdmg
                     print(f'{self.Name} magic damage is now {self.magic_damage}')
                     self.gold = self.gold - 100
-                    self.magic_damage = self.max_magicdmg
-            if self.gold <= 0:
-                print('You have no gold, brokie...')
+                    print(f'You now have {self.gold} gold')
         if weapon_choice == 'N':
             print('Ok cheapskate...')
     def selling(self):
@@ -213,10 +216,10 @@ class Player:
         
 
 Character = Player(150,"idk",50,3,100,100,150,100,50,10,500,[])
-NPC1 = Player(400,"NPC",10,3,20,0,200,10,20,0,0,[])
-NPC2 = Player(500,"NPC",10,3,20,0,200,10,20,0,0,[])
-NPC3 = Player(550,"NPC",10,3,20,0,200,10,20,0,0,[])
-Boss = Player(3000,"NPC",100,3,200,0,200,200,100,0,0,[])
+NPC1 = Player(1300,"NPC",10,3,30,0,200,10,20,0,0,[])
+NPC2 = Player(1500,"NPC",10,3,30,0,200,10,20,0,0,[])
+NPC3 = Player(1400,"NPC",10,3,30,0,200,10,20,0,0,[])
+Boss = Player(5000,"NPC",100,3,200,0,200,200,100,0,0,[])
 #HP,Name,Damage,energy_point,magic_damage,gold,max_HP
 
 
@@ -244,7 +247,7 @@ def encounter():
             break
         if enemy.HP <=0:
             print('You won, the Mob died')
-            Character.add_gold(12)
+            Character.add_gold(100)
             Character.HP = Character.max_HP
             enemies.remove(enemy)
             break
@@ -257,7 +260,7 @@ def encounter():
             break
         if enemy.HP <= 0:
             print('You won, the Mob died')
-            Character.add_gold(12)
+            Character.add_gold(100)
             Character.HP = Character.max_HP
             enemies.remove(enemy)
             break
@@ -315,7 +318,7 @@ if start == "go":
     print("You're exploring a forest near the village you started at. While exploring you encounter a monster, you can choose fight it or run away...")
 ran = [1,2,3]
 prs = [1,2]
-coi = list(range(10,19))
+coi = list(range(50,100))
 
 
 def tatakae():
@@ -359,12 +362,14 @@ def paths():
             print("--------------------------------")
             print("You found a treasure chest!")
             Character.add_gold(cooi)
+            item()
             print("And return to the town...")
             town()
         elif numb == 2:
             print("You found another Monster.")
             tatakae()
         elif numb == 3:
+            item()
             item()
             print("Go deeper or retreat?")
             new_input = input("(Deeper/Return)").capitalize()
@@ -446,4 +451,5 @@ while len(enemies) == 0:
             print("N/A")
     elif input_ == "Enter":
         print("you entered the portal")
+        boss()
         break
