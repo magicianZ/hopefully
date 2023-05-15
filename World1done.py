@@ -292,7 +292,7 @@ if start == "go":
     print("You're exploring a forest near the village you started at. While exploring you encounter a monster, you can choose fight it or run away...")
 ran = [1,2,3]
 prs = [1,2]
-coi = list(range(10,19))
+coi = list(range(100,300))
 
 
 def tatakae():
