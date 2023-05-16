@@ -119,7 +119,6 @@ class Player:
 
 
     def turn(self,target):
-        print('---------------------------------------------------')
         user_input = input(f'{self.Name}s turn - Would you like to - Regular Attack | Magic Attack | Ultimate or Use an Item. To Regular Attack type "Attack" , to Magic Attack type "Magic" to Ultimate type "Ult" to Use an Item, type "Item').capitalize()
         
         if user_input == 'Attack':
@@ -155,13 +154,22 @@ class Player:
 
     def preview_items(self):
         print(f'Welcome to the shop, our items are {self.items}')
-        print('Sharpening stone increases your damage by 10, Armor increases your HP by 50, Magic Armor increases your magic health by 50 and the wand increases your magic damage by 100')
+        print(f'I see you have, {self.gold} gold.')
+        time.sleep(1)
+        print('Our items are...')
+        time.sleep(0.5)
+        print('Stone: Cost: 50 gold. Buff: Increases Normal Attack by 100.')
+        time.sleep(0.5)
+        print('Wand: Cost: 100 Buff: Increases Magic Damage by 150')
+        time.sleep(0.5)
+        print('Armor: Cost: 100. Buff: Increases HP by 150.')
+        time.sleep(0.5)
         weapon_choice = input('Would you like to buy anything? Y/N').capitalize()
         if weapon_choice == 'Y':
             what_item = input('What item would you like to buy?').capitalize()
             if self.gold <= 0:
                 print('You have no gold, brokie...')
-            if what_item == 'Sharpening_Stone':
+            if what_item == 'Stone':
                 if self.gold >= 50:
                     self.max_attack = self.Damage + self.Sharpening_Stone
                     self.Damage = self.max_attack
@@ -240,7 +248,9 @@ def encounter():
     enemy.energy_point = 3
     while running:
         if LysTurn:
+            print(f'{Character.Name}s Turn')
             Character.turn(enemy)
+            print('-----------------------------------------')
             EnemiestURN = True
         if Character.HP <= 0:
             print('You died')
@@ -252,7 +262,9 @@ def encounter():
             enemies.remove(enemy)
             break
         if EnemiestURN:
+            print(f'{enemy.Name}s Turn')
             enemy.AI(Character)
+            print('-----------------------------------------')
         else:
             LysTurn == True 
         if Character.HP <= 0:
