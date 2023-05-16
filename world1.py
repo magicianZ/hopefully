@@ -227,6 +227,9 @@ Character = Player(150,"idk",50,3,100,100,150,100,50,10,500,[])
 NPC1 = Player(1300,"NPC",10,3,30,0,200,10,20,0,0,[])
 NPC2 = Player(1500,"NPC",10,3,30,0,200,10,20,0,0,[])
 NPC3 = Player(1400,"NPC",10,3,30,0,200,10,20,0,0,[])
+NPC4 = Player(950,"NPC",10,3,30,0,200,10,20,0,0,[])
+NPC5 = Player(1000,"NPC",10,3,30,0,200,10,20,0,0,[])
+
 Boss = Player(5000,"NPC",100,3,200,0,200,200,100,0,0,[])
 #HP,Name,Damage,energy_point,magic_damage,gold,max_HP
 
@@ -236,7 +239,7 @@ Boss = Player(5000,"NPC",100,3,200,0,200,200,100,0,0,[])
 LysTurn = True
 EnemiestURN = False
 running = True
-enemies = [NPC1,NPC2,NPC3]
+enemies = [NPC1,NPC2,NPC3,NPC4,NPC5]
 
 
 
@@ -309,6 +312,7 @@ def boss():
             break
         if EnemiestURN:
             enemy.AI(Character)
+Character.name()
 print("You are strolling around town, you can go to the shop or venture into the wilderness.")
 start = "nogo"
 first = input("(Shop/Explore)").capitalize()
@@ -465,3 +469,4 @@ while len(enemies) == 0:
         print("you entered the portal")
         boss()
         break
+
