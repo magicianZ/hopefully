@@ -312,6 +312,9 @@ def boss():
             break
         if EnemiestURN:
             enemy.AI(Character)
+        if Character.HP <= 0:
+            print('You died')
+            break
 Character.name()
 print("You are strolling around town, you can go to the shop or venture into the wilderness.")
 start = "nogo"
