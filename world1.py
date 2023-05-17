@@ -2,18 +2,18 @@ import random
 import time
 
 class Player:
-    Sharpening_Stone = 100
+    Stone = 100
     Armor = 150
     Wand = 150
     Magic_Armor = 50
-    items = ['Sharpening_Stone','Armor','Wand','Magic_Armor']
+    items = ['Stone','Armor','Wand','Magic_Armor']
     inventory_items = ['Smoothie','Protein_Bar','Potion']
-    Smoothie = 50
-    Protein_Bar = 30
-    Potion = 20
+    Smoothie = 75
+    Protein_Bar = 50
+    Potion = 100
     noah_rozin = True
    
-    def __init__(self,HP,Name,Damage,energy_point,magic_damage,gold,max_HP,max_magicdmg,max_attack,ultpoints,ultdmg,inventory):
+    def __init__(self,HP,Name,Damage,energy_point,magic_damage,gold,max_HP,max_magicdmg,max_attack,ultpoints,ultdmg,inventory,maxult):
         self.HP = HP
         
         self.Name = Name
@@ -27,6 +27,7 @@ class Player:
         self.ultpoints = ultpoints
         self.ultdmg = ultdmg
         self.inventory = inventory
+        self.maxult = maxult
     def name(self):
         name1 = input('What shall you be called adventurer?')
         self.Name = name1
@@ -60,7 +61,6 @@ class Player:
             print('Recover energy')
     def ult(self,target):
         if self.ultpoints >= 5:
-            self.ultpoints = 0
             print('You charge up an ultimate, press F as much as you can to increase the damage of your ultimate!')
             time.sleep(1)
             print('Be careful! If you press F for more than 5 seconds, your damage bonus will not count!')
@@ -76,14 +76,16 @@ class Player:
                 real_dmg = self.ultdmg + len(thedmg)
                 nuke_taken = target.HP - real_dmg
                 target.HP = nuke_taken
-                print(real_dmg)
-                print (f'{target.Name} is now {target.HP} HP')
+                print(f'You have done {real_dmg} dmg')
+                self.ultpoints = 0
+                print (f'{target.Name} is now {target.HP} HP and you have {self.ultpoints} ultimate points')
             elif t < -5:
                 print('You have exceeded 5 seconds..')
                 real_dmg = self.ultdmg
                 nuke_taken = target.HP - real_dmg
                 target.HP = nuke_taken
-                print (f'{target.Name} is now {target.HP} HP')
+                self.ultpoints = 0
+                print (f'{target.Name} is now {target.HP} HP and you have {self.ultpoints} ultimate points.')
                 print('--------------------------------------------')
     def use_item(self):
         while self.noah_rozin == True:
@@ -119,15 +121,27 @@ class Player:
 
 
     def turn(self,target):
-        user_input = input(f'{self.Name}s turn - Would you like to - Regular Attack | Magic Attack | Ultimate or Use an Item. To Regular Attack type "Attack" , to Magic Attack type "Magic" to Ultimate type "Ult" to Use an Item, type "Item').capitalize()
+       print(f'{self.Name}s turn. Would you like to....')
+       time.sleep(0.5)
+       print(f'Regular Attack : Type "Attack" and deal {self.Damage} damage.')
+       time.sleep(0.5)
+       print(f'Magic Attack: Type "Magic" and deal {self.magic_damage} damage')
+       time.sleep(0.5)
+       print(f'Use an item: Type "Item" and choose an item out of {self.inventory}')
+       time.sleep(0.5)
+       print(f'Use an Ultimate: Type "Ult" and deal {self.ultdmg} damage plus your modifier!')
+       time.sleep(0.3)
+       print(f'You have {self.energy_point} energy points and {self.ultpoints} ult points.')
+       user_input = input('What would you like to do?').capitalize()
+
         
-        if user_input == 'Attack':
+       if user_input == 'Attack':
             self.attack(target)
-        elif user_input == 'Magic':
+       elif user_input == 'Magic':
             self.magic_dmg(target)
-        elif user_input == 'Ult':
+       elif user_input == 'Ult':
             self.ult(target)
-        elif user_input == 'Item':
+       elif user_input == 'Item':
             self.use_item()
 
 
@@ -153,14 +167,14 @@ class Player:
 
 
     def preview_items(self):
-        print(f'Welcome to the shop, our items are {self.items}')
+        print('Welcome to the shop')
         print(f'I see you have, {self.gold} gold.')
         time.sleep(1)
         print('Our items are...')
         time.sleep(0.5)
         print('Stone: Cost: 50 gold. Buff: Increases Normal Attack by 100.')
         time.sleep(0.5)
-        print('Wand: Cost: 100 Buff: Increases Magic Damage by 150')
+        print('Wand: Cost: 200 Buff: Increases Magic Damage by 150 and Ultimate Damage by 200')
         time.sleep(0.5)
         print('Armor: Cost: 100. Buff: Increases HP by 150.')
         time.sleep(0.5)
@@ -171,7 +185,7 @@ class Player:
                 print('You have no gold, brokie...')
             if what_item == 'Stone':
                 if self.gold >= 50:
-                    self.max_attack = self.Damage + self.Sharpening_Stone
+                    self.max_attack = self.Damage + self.Stone
                     self.Damage = self.max_attack
                     print(f'{self.Name} damage is now {self.Damage}')
                     self.gold = self.gold - 50
@@ -182,37 +196,24 @@ class Player:
                     self.max_HP = self.max_HP + self.Armor
                     self.HP = self.max_HP
                     print(f'{self.Name} HP is now {self.max_HP}')
+                    time.sleep(0.5)
+                    print('Take an item for your troubles!')
+                    time.sleep(0.3)
+                    item()
                     self.gold = self.gold - 100
                     print(f'You now have {self.gold} gold')
                   
             if what_item == 'Wand':
-                if self.gold >= 100:
+                if self.gold >= 200:
                     self.max_magicdmg = self.magic_damage + self.Wand
                     self.magic_damage = self.max_magicdmg
-                    print(f'{self.Name} magic damage is now {self.magic_damage}')
-                    self.gold = self.gold - 100
+                    self.maxult = self.ultdmg + 200
+                    self.ultdmg = self.maxult
+                    print(f'{self.Name} magic damage is now {self.magic_damage} and your ultimate damage is now {self.ultdmg}')
+                    self.gold = self.gold - 200
                     print(f'You now have {self.gold} gold')
         if weapon_choice == 'N':
             print('Ok cheapskate...')
-    def selling(self):
-        print(f'It seems you have {self.inventory}')
-        sell = input('Do you wish to sell?')
-        if sell == 'Y':
-            the_Sell = input('Would you like to sell, ALL YOUR ITEMS? Y or N')
-            if the_Sell == 'Y':
-                length = len(self.inventory)
-                final_cost = 50 * length
-                self.gold =  self.gold + final_cost
-                self.inventory.clear()
-                print(self.inventory)
-                print(self.gold)
-                print(f'Your gold is now {self.gold}')
-            if the_Sell == 'N':
-                print('Goodbye')
-        
-
-        if sell == 'N':
-            print('Ok then, goodbye!')
 
     
 
@@ -223,14 +224,14 @@ class Player:
       
         
 
-Character = Player(150,"idk",50,3,100,100,150,100,50,10,500,[])
-NPC1 = Player(1300,"NPC",10,3,30,0,200,10,20,0,0,[])
-NPC2 = Player(1500,"NPC",10,3,30,0,200,10,20,0,0,[])
-NPC3 = Player(1400,"NPC",10,3,30,0,200,10,20,0,0,[])
-NPC4 = Player(950,"NPC",10,3,30,0,200,10,20,0,0,[])
-NPC5 = Player(1000,"NPC",10,3,30,0,200,10,20,0,0,[])
+Character = Player(150,"idk",50,3,100,100,150,100,50,10,500,[],500)
+NPC1 = Player(1300,"NPC",10,3,30,0,200,10,20,0,0,[],0)
+NPC2 = Player(1500,"NPC",10,3,30,0,200,10,20,0,0,[],0)
+NPC3 = Player(1400,"NPC",10,3,30,0,200,10,20,0,0,[],0)
+NPC4 = Player(950,"NPC",10,3,30,0,200,10,20,0,0,[],0)
+NPC5 = Player(1000,"NPC",10,3,30,0,200,10,20,0,0,[],0)
 
-Boss = Player(5000,"NPC",100,3,200,0,200,200,100,0,0,[])
+Boss = Player(7000,"NPC",100,6,200,0,200,200,100,0,0,[],0)
 #HP,Name,Damage,energy_point,magic_damage,gold,max_HP
 
 
@@ -308,7 +309,7 @@ def boss():
             print('You won, the Mob died')
             Character.add_gold(1000)
             Character.HP = Character.max_HP
-            enemies.remove(enemy)
+            enemies.remove(Boss)
             break
         if EnemiestURN:
             enemy.AI(Character)
@@ -337,7 +338,7 @@ if start == "go":
     print("You're exploring a forest near the village you started at. While exploring you encounter a monster, you can choose fight it or run away...")
 ran = [1,2,3]
 prs = [1,2]
-coi = list(range(50,100))
+coi = list(range(100,300))
 
 
 def tatakae():
@@ -382,12 +383,15 @@ def paths():
             print("You found a treasure chest!")
             Character.add_gold(cooi)
             item()
+            item()
             print("And return to the town...")
             town()
         elif numb == 2:
             print("You found another Monster.")
             tatakae()
         elif numb == 3:
+            item()
+            item()
             item()
             item()
             print("Go deeper or retreat?")
@@ -411,12 +415,16 @@ def paths():
             print("--------------------------------")
             print("You found a treasure chest!")
             Character.add_gold(cooi)
+            item()
+            item()
             print("And return to the town...")
             town()
         elif numb == 2:
             print("You found another Monster.")
             tatakae()
         elif numb == 3:
+            item()
+            item()
             item()
             print("Go deeper or retreat?")
             new_input = input("(Deeper/Return)").capitalize()
