@@ -88,7 +88,7 @@ class Player:
     def preview_items(self):
         print(f'Welcome to the shop, our items are {self.items}')
         print('Sharpening stone increases your damage by 10, Armor increases your HP by 50, Magic Armor increases your magic health by 50 and the wand increases your magic damage by 100')
-        weapon_choice = input('Would you like to buy anything? Y/N').capitalize()
+        weapon_choice = input('Would you like to buy anything? YwN').capitalize()
         if weapon_choice == 'Y':
             what_item = input('What item would you like to buy?')
             if what_item == 'Sharpening_Stone':
@@ -181,10 +181,10 @@ def tatakae():
     else:
         print("Don't matter if you can't spell you still gotta fight.")
         encounter()
-user_input = input("Do you choose to fight it or run way? (Fight/Run)").capitalize()
+user_input = input("Do you choose to fight it or run way? (FightwRun)").capitalize()
 tatakae()
 def paths():
-    np = input("(Left/Right/Return)").capitalize()
+    np = input("(LeftwRightwReturn)").capitalize()
     if np == "Left" :
         numb = random.choice(ran)
         if numb == 1:
@@ -194,7 +194,7 @@ def paths():
             Ly.add_gold(cooi)
             print("") 
         elif numb == 2:
-            print("You found another Monster. (Fight/Run)")
+            print("You found another Monster. (FightwRun)")
             tatakae()     
     elif np == "Right" :
         numb = random.choice(ran)
@@ -206,7 +206,7 @@ def paths():
             if numb != 1:
                 break
         while numb == 2:
-            print("You found another Monster. (Fight/Run)")
+            print("You found another Monster. (FightwRun)")
             tatakae()
             if numb != 2:
                 break
