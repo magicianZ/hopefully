@@ -89,7 +89,7 @@ class Player:
                 print('--------------------------------------------')
     def use_item(self):
         while self.noah_rozin == True:
-            choicehm = input(f'You have chose to use an item, out of {self.inventory}, what item would you like to use? If you do not want to use an item, type N')
+            choicehm = input(f'You have chose to use an item, out of {self.inventory}, what item would you like to use? If you do not want to use an item, type N').capitalize()
             if 'Smoothie' in self.inventory:
                 if choicehm == 'Smoothie':
                     self.HP = self.HP + self.Smoothie
@@ -152,9 +152,9 @@ class Player:
         self.list = ['Attack','Attack','Attack']
         get_lucky = random.choice(self.list)
         if self.energy_point > 0:
-                self.magic_dmg(Character)
+                self.magic_dmg(Tutorial)
         elif self.energy_point == 0:
-                self.attack(Character)
+                self.attack(Tutorial)
              
        
           
@@ -224,7 +224,7 @@ class Player:
       
         
 
-Character = Player(150,"You",50,3,100,100,150,100,50,10,500,[],500)
+Tutorial = Player(150,"You",50,3,100,100,150,100,50,10,500,[],500)
 NPC1 = Player(50,"NPC",10,3,30,0,200,10,20,0,0,[],0)
 NPC2 = Player(100,"NPC",10,3,30,0,200,10,20,0,0,[],0)
 NPC3 = Player(500,"NPC",10,3,30,0,200,10,20,0,0,[],0)
@@ -247,154 +247,154 @@ enemies = [NPC1,NPC2,NPC3,NPC4,NPC5]
 
 
 def encounter():
-    Character.energy_point = 3
+    Tutorial.energy_point = 3
     enemy = NPC1
     enemy.energy_point = 3
     while running:
         if LysTurn:
-            print(f'{Character.Name}s Turn')
-            Character.turn(enemy)
+            print(f'{Tutorial.Name}s Turn')
+            Tutorial.turn(enemy)
             print('-----------------------------------------')
             EnemiestURN = True
-        if Character.HP <= 0:
+        if Tutorial.HP <= 0:
             print('You died')
             break
         if enemy.HP <=0:
             print('You won, the Mob died')
-            Character.add_gold(100)
-            Character.HP = Character.max_HP
+            Tutorial.add_gold(100)
+            Tutorial.HP = Tutorial.max_HP
             enemies.remove(enemy)
             break
         if EnemiestURN:
             print(f'{enemy.Name}s Turn')
-            enemy.AI(Character)
+            enemy.AI(Tutorial)
             print('-----------------------------------------')
         else:
             LysTurn == True 
-        if Character.HP <= 0:
+        if Tutorial.HP <= 0:
             print('You died')
             break
         if enemy.HP <= 0:
             print('You won, the Mob died')
-            Character.add_gold(100)
-            Character.HP = Character.max_HP
+            Tutorial.add_gold(100)
+            Tutorial.HP = Tutorial.max_HP
             enemies.remove(enemy)
             break
 
 def encounter2():
-    Character.energy_point = 3
+    Tutorial.energy_point = 3
     enemy = NPC2
     enemy.energy_point = 3
     while running:
         if LysTurn:
-            print(f'{Character.Name}s Turn')
-            Character.turn(enemy)
+            print(f'{Tutorial.Name}s Turn')
+            Tutorial.turn(enemy)
             print('-----------------------------------------')
             EnemiestURN = True
-        if Character.HP <= 0:
+        if Tutorial.HP <= 0:
             print('You died')
             break
         if enemy.HP <=0:
             print('You won, the Mob died')
-            Character.add_gold(100)
-            Character.HP = Character.max_HP
+            Tutorial.add_gold(100)
+            Tutorial.HP = Tutorial.max_HP
             enemies.remove(enemy)
             break
         if EnemiestURN:
             print(f'{enemy.Name}s Turn')
-            enemy.AI(Character)
+            enemy.AI(Tutorial)
             print('-----------------------------------------')
         else:
             LysTurn == True 
-        if Character.HP <= 0:
+        if Tutorial.HP <= 0:
             print('You died')
             break
         if enemy.HP <= 0:
             print('You won, the Mob died')
-            Character.add_gold(100)
-            Character.HP = Character.max_HP
+            Tutorial.add_gold(100)
+            Tutorial.HP = Tutorial.max_HP
             enemies.remove(enemy)
             break
 
 def encounter3():
-    Character.energy_point = 3
+    Tutorial.energy_point = 3
     enemy = NPC3
     enemy.energy_point = 3
     while running:
         if LysTurn:
-            print(f'{Character.Name}s Turn')
-            Character.turn(enemy)
+            print(f'{Tutorial.Name}s Turn')
+            Tutorial.turn(enemy)
             print('-----------------------------------------')
             EnemiestURN = True
-        if Character.HP <= 0:
+        if Tutorial.HP <= 0:
             print('You died')
             break
         if enemy.HP <=0:
             print('You won, the Mob died')
-            Character.add_gold(100)
-            Character.HP = Character.max_HP
+            Tutorial.add_gold(100)
+            Tutorial.HP = Tutorial.max_HP
             enemies.remove(enemy)
             break
         if EnemiestURN:
             print(f'{enemy.Name}s Turn')
-            enemy.AI(Character)
+            enemy.AI(Tutorial)
             print('-----------------------------------------')
         else:
             LysTurn == True 
-        if Character.HP <= 0:
+        if Tutorial.HP <= 0:
             print('You died')
             break
         if enemy.HP <= 0:
             print('You won, the Mob died')
-            Character.add_gold(100)
-            Character.HP = Character.max_HP
+            Tutorial.add_gold(100)
+            Tutorial.HP = Tutorial.max_HP
             enemies.remove(enemy)
             break
 
 def encounter4():
-    Character.energy_point = 3
+    Tutorial.energy_point = 3
     enemy = NPC4
     enemy.energy_point = 3
     while running:
         if LysTurn:
-            print(f'{Character.Name}s Turn')
-            Character.turn(enemy)
+            print(f'{Tutorial.Name}s Turn')
+            Tutorial.turn(enemy)
             print('-----------------------------------------')
             EnemiestURN = True
-        if Character.HP <= 0:
+        if Tutorial.HP <= 0:
             print('You died')
             break
         if enemy.HP <=0:
             print('You won, the Mob died')
-            Character.add_gold(100)
-            Character.HP = Character.max_HP
+            Tutorial.add_gold(100)
+            Tutorial.HP = Tutorial.max_HP
             enemies.remove(enemy)
             break
         if EnemiestURN:
             print(f'{enemy.Name}s Turn')
-            enemy.AI(Character)
+            enemy.AI(Tutorial)
             print('-----------------------------------------')
         else:
             LysTurn == True 
-        if Character.HP <= 0:
+        if Tutorial.HP <= 0:
             print('You died')
             break
         if enemy.HP <= 0:
             print('You won, the Mob died')
-            Character.add_gold(100)
-            Character.HP = Character.max_HP
+            Tutorial.add_gold(100)
+            Tutorial.HP = Tutorial.max_HP
             enemies.remove(enemy)
             break
 
 def shop():
 
-    Character.preview_items()
+    Tutorial.preview_items()
 
 def item():
-    ok = random.choice(Character.inventory_items)
+    ok = random.choice(Tutorial.inventory_items)
     print(f'You have found an {ok}')
-    Character.inventory.append(ok)
-    print(Character.inventory)
+    Tutorial.inventory.append(ok)
+    print(Tutorial.inventory)
 
 
 print('Welcome to the tutorial nerd')
@@ -404,13 +404,13 @@ time.sleep(1)
 print('You have multiple mechanics, but I will teach you how to basic attack first.')
 time.sleep(1)
 print('You are going to be in an encounter, type "Attack"')
-time.sleep(4)
+input('Type when you are ready.')
 encounter()
 time.sleep(2)
 print('A basic attack does 50 damage and regenerates 1 ENERGY POINT')
 time.sleep(3)
 print('You will now learn Magic Attacks, a magic attack will take up 1 energy point, (you start off with 3). You regenerate energy points by attacking. If you use a Magic Attack with no energy points, your turn will be skipped. Now type "Magic"')
-time.sleep(5)
+input('Type when you are ready.')
 encounter2()
 time.sleep(3)
 print('Magic attacks make you lose 1 energy point and deal 100 damage.')
@@ -422,7 +422,7 @@ time.sleep(4)
 print('The amount of times you press f is added to your ultimate damage.')
 time.sleep(2)
 print('If you exceed 5 seconds of pressing F, the damage addition will not count. Use your own judgement.')
-time.sleep(2)
+input('Type when you are ready.')
 encounter3()
 time.sleep(4)
 print('Throughout your journeies, you will find items, I will show you how to use items, but first let me give you one.')
@@ -431,7 +431,7 @@ time.sleep(2)
 print('To use an item, type "Item" in the encounter and then type the name of the item you will be using.')
 time.sleep(1)
 print('After you use the item, kill off the enemy with the attacks you have learned.')
-time.sleep(3)
+input('Type when you are ready.')
 encounter4()
 time.sleep(2)
 print('You might have noticed that you gain gold upon killing enemies. You can use this gold in the shop.')

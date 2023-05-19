@@ -89,23 +89,23 @@ class Player:
                 print('--------------------------------------------')
     def use_item(self):
         while self.noah_rozin == True:
-            choicehm = input(f'You have chose to use an item, out of {self.inventory}, what item would you like to use? If you do not want to use an item, type N')
+            choicehm = input(f'You have chose to use an item, out of {self.inventory}, what item would you like to use? If you do not want to use an item, type N').capitalize()
             if 'Smoothie' in self.inventory:
                 if choicehm == 'Smoothie':
                     self.HP = self.HP + self.Smoothie
                     print(f'{self.Name} is now {self.HP} HP.')
                     self.inventory.remove('Smoothie')
-            if 'Protein_Bar' in self.inventory:
+            elif 'Protein_Bar' in self.inventory:
                 if choicehm == 'Protein_Bar':
                     self.HP = self.HP + self.Protein_Bar
                     print(f'{self.Name} is now {self.HP} HP.')
                     self.inventory.remove('Protein_Bar')
-            if 'Potion' in self.inventory:
+            elif 'Potion' in self.inventory:
                 if choicehm == 'Potion':
                     self.HP = self.HP + self.Protein_Bar
                     print(f'{self.Name} is now {self.HP} HP.')
                     self.inventory.remove('Potion')
-            if choicehm == 'N':
+            elif choicehm == 'N':
                 break
             else:
                 print('You do not have that item.')
