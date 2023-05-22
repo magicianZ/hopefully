@@ -277,14 +277,14 @@ first = input("(Shop/Explore)").capitalize()
 Character.HP = Character.max_HP
 Character.energy_point == 3
 if first == "Shop":
-    xy = input("(Enter 'Continue' to enter shop)").capitalize()
-    while xy == "Continue" or xy == "Again":
+    xy = "Continue"
+    while xy[0] == "C":
+        xy = input("(Enter 'Continue' to enter shop)").capitalize()
         shop()
         xy = input("(Enter 'Again' to shop again, enter 'No' to continue exploring)").capitalize()
         if xy == "Again":
-            xy == "Again"
-        elif xy == "No":
-            start = "go"
+            xy  == "Continue"
+        elif xy  == "No":
             break
 elif first == "Explore":
     start = "go"
@@ -313,12 +313,13 @@ def town():
     Character.HP = Character.max_HP
     Character.energy_point == 3
     if buy == "Shop":
-        x = input("(Enter 'Continue' to enter shop)").capitalize()
-        while x == "Continue" or x == "Again":
+        x = "Continue"
+        while x[0] == "C":
+            x = input("(Enter 'Continue' to enter shop)").capitalize()
             shop()
             x = input("(Enter 'Again' to shop again, enter 'No' to continue exploring)").capitalize()
             if x == "Again":
-                x == "Again"
+                x == "Continue"
             elif x == "No":
                 break
         print("You found another Monster.")
@@ -435,18 +436,15 @@ while len(enemies) == 0:
         buy = input("(Shop/Explore)").capitalize()
         Character.HP = Character.max_HP
         if buy == "Shop":
-            x = input("(Enter 'Continue' to enter shop)").capitalize()
-            while x == "Continue" or x == "Again":
+            x = "Continue"
+            while x == "Continue":
+                x = input("(Enter 'Continue' to enter shop)").capitalize()
                 shop()
                 x = input("(Enter 'Again' to shop again, enter 'No' to continue exploring)").capitalize()
                 if x == "Again":
-                    x == "Again"
+                    x == "Continue"
                 elif x == "No":
                     break
-                elif x[0:] == "A":
-                    x == "Again"
-                elif x[0:] == "N":
-                    break  
             print("You go into the portal...")
             print("N/A")
     elif input_ == "Enter":
