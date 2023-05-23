@@ -25,12 +25,38 @@ def gamble():
                 slot1 = random.choice(a_list)
                 slot2 = random.choice(a_list)
                 slot3 = random.choice(a_list)
+
+
                 
 
 
+def typing():
+    math = ["Pneumonoultramicroscopicsilicovolcanoconiosis","Hippopotomonstrosesquippedaliophobia","Floccinaucinihilipilification","Supercalifragilisticexpialidocious","Thyroparathyroidectomized","Honorificabilitudinitatibus"]
+    #s
+    print('Welcome to the typing puzzle, you are going to type a word for me. TYPE AS FAST AS YOU CAN. If you get spell the word wrong or run out of time, your gold will face some consequences.')
+    input('Type when you are ready.')
+    variable = random.choice(math)
+    time.sleep(1)
+    print(f'Type... {variable}')
+    time1 = time.time()
+    their_spelling = input('')
+    time2 = time.time()
+    t = time1 - time2
+    positive_t = abs(t)
+    print(positive_t)
+    if their_spelling == variable:
+        if positive_t <= 10:
+            print(f'Good job, you typed this in {positive_t} seconds. You gained some gold.')
+            #self.gold = self.gold + 100
+        elif positive_t >10:
+            print('You were too slow.')
+    elif their_spelling != variable:
+        print('you spelt it wrong nerd.')
+    
+
 
             
-
+typing()
             
 
 
