@@ -290,8 +290,8 @@ elif first == "Explore":
     start = "go"
 if start == "go":    
     print("You're exploring a forest near the village you started at. While exploring you encounter a monster, you can choose fight it or run away...")
-ran = [1,2,3]
-prs = [1,2]
+ran = [1,2,3,4]
+prs = [1,2,3]
 coi = list(range(100,300))
 
 
@@ -359,6 +359,26 @@ def paths():
                 elif deep == 2:
                     print("You found another Monster.")
                     tatakae()
+        elif numb == 4:
+            #puzzle()
+            print("Go deeper or return?")
+            new_input = input("(Deeper/Return)").capitalize()
+            if new_input == "Deeper":
+                deep = random.choice(prs)
+                if deep == 1:
+                    cooi = random.choice(coi)
+                    print("--------------------------------")
+                    print("You found a treasure chest!")
+                    Character.add_gold(cooi)
+                    print("And return to the town...")
+                    town()
+                elif deep == 2:
+                    print("You found another Monster.")
+                    tatakae()      
+                elif deep == 3:
+                    item()
+                    print("You find your way back to town to rest.")
+                    town()     
     elif np == "Right" :
         numb = random.choice(ran)
         if numb == 1:
@@ -373,7 +393,23 @@ def paths():
             tatakae()
         elif numb == 3:
             item()
-            print("Go deeper or retreat?")
+            print("Go deeper or return?")
+            new_input = input("(Deeper/Return)").capitalize()
+            if new_input == "Deeper":
+                deep = random.choice(prs)
+                if deep == 1:
+                    cooi = random.choice(coi)
+                    print("--------------------------------")
+                    print("You found a treasure chest!")
+                    Character.add_gold(cooi)
+                    print("And return to the town...")
+                    town()
+                elif deep == 2:
+                    print("You found another Monster.")
+                    tatakae() 
+        elif numb == 4:
+            #puzzle()
+            print("Go deeper or return?")
             new_input = input("(Deeper/Return)").capitalize()
             if new_input == "Deeper":
                 deep = random.choice(prs)
@@ -387,6 +423,10 @@ def paths():
                 elif deep == 2:
                     print("You found another Monster.")
                     tatakae()      
+                elif deep == 3:
+                    item()
+                    print("You find your way back to town to rest.")
+                    town()      
         elif numb == 2:
             print("You found another Monster.")
             tatakae()
