@@ -1,6 +1,8 @@
 import random
 import time
-
+from collections import Counter
+gamblingfr = True
+from puzzle import gamble, typing , trivia , puzzle1
 class Player:
     Stone = 100
     Armor = 150
@@ -220,7 +222,7 @@ class Player:
 
 
 
-
+gamble()
       
         
 
