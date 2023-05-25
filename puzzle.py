@@ -27,7 +27,28 @@ def gamble():
                 slot3 = random.choice(a_list)
                 slot_machine = [slot1,slot2,slot3]
                 commence = Counter(slot_machine)
-                print(commence)
+                if commence['Gold'] > 1:
+                    if commence['Gold'] == 3:
+                        print('You hit the 3 gold!')
+                        print(commence)
+                    print('You have won a little bit of gold.')
+                    print(commence)
+                if commence['Diamond'] > 1:
+                    if commence['Diamond'] == 3:
+                        print('YOU HIT THE JACKPOT')
+                        print(commence)
+                    print('You have won a little bit of gold.')
+                    print(commence)
+                if commence['Junk'] > 1:
+                    if commence['Junk'] == 3:
+                        print('You hit the junk jackpot nerd')
+                        print(commence)
+                    print('You lost a bit of gold...')
+                    print(commence)
+                else:
+                    print(commence)
+
+
 
 
                 
