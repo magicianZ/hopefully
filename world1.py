@@ -225,7 +225,7 @@ class Player:
       
         
 
-Character = Player(150,"idk",50,3,100,int(49),150,100,50,10,500,[],500)
+Character = Player(150,"idk",50,3,100,int(100),150,100,50,10,500,[],500)
 
 
 
@@ -237,7 +237,54 @@ NPC5 = Player(1000,"NPC",10,3,30,0,200,10,20,0,0,[],0)
 
 Boss = Player(7000,"NPC",100,6,200,0,200,200,100,0,0,[],0)
 #HP,Name,Damage,energy_point,magic_damage,gold,max_HP
-from puzzle import puzzle1, gamble,typing, trivia
+from puzzle import  gamble,typing, trivia
+def puzzle1():
+    choices = ['Rock','Paper','Scissors']
+    print('Lets play rock paper scissors!')
+
+    player_choice = input("Rock paper scissors, what do you pick?").capitalize()
+    computer_choice = random.choice(choices)
+
+    while player_choice not in choices:
+        player_choice = input('Rock paper scissors, what do you pick?').capitalize()
+
+    if player_choice == computer_choice:
+        print('It was a tie')
+        print('You have won, you may continue..')
+        match = True
+    elif player_choice == 'Rock':
+        if computer_choice == 'Paper':
+            print ('You lose')
+        elif computer_choice == 'Scissors':
+            print ('You win')
+            print('You have won, you may continue..')
+            match = True
+            
+
+    elif player_choice == 'Paper':
+        if computer_choice == 'Scissors':
+            print ('You lose')
+        elif computer_choice == 'Rock':
+            print ('You win')
+            print('You have won, you may continue..')
+            match = True
+        
+
+    elif player_choice == 'Scissors':
+        if computer_choice == 'Rock':
+            print ('You lose')
+    elif computer_choice == 'Paper':
+        print ('You win')
+        print('You have won, you may continue..')
+        match = True
+    if match == True:
+        global win
+        win = True
+        Character.gold = Character.gold + 150
+        print(f'Good job you won, you have gained $150 gold. Your gold is now {Character.gold}')
+    if match != True:
+        Character.gold = Character.gold - 50
+        print(f'You lost, and lost some gold. You now have {Character.gold}')
 
 
 
@@ -246,7 +293,7 @@ EnemiestURN = False
 running = True
 enemies = [NPC1,NPC2,NPC3,NPC4,NPC5]
 
-puzzl = [puzzle1,gamble,typing,trivia]
+puzzl = ["puzzle1","gamble","typing","trivia"]
 
 
 
@@ -447,19 +494,19 @@ def paths():
                     print("You found another Monster.")
                     tatakae()      
         elif numb == 4:
-            puz = random.choice(puzzl)
-            if puz == trivia:
+            puz = random.choice("puzzl")
+            if puz == "trivia":
                 trivia()
-                puz.remove(trivia)
-            elif puz == gamble:
+                puzzl.remove(trivia)
+            elif puz == "gamble":
                 gamble()
-                puz.remove(gamble)
-            elif puz == puzzle1:
+                puzzl.remove("gamble")
+            elif puz == "puzzle1":
                 puzzle1()
-                puz.remove(puzzle1)
-            elif puz == typing:
+                puzzl.remove("puzzle1")
+            elif puz == "typing":
                 typing()
-                puz.remove(typing)
+                puzzl.remove("typing")
             
 
         

@@ -15,11 +15,15 @@ def gamble():
             print('COMMENCE THE GAMBLING..')
             time.sleep(1)
             print('You encounter a slot machine.')
-            slot = input('How much would you like to gamble? MUST BE 100 GOLD OR OVER.')
-            while slot < '100':
-                print('Please enter a valid gambling amount.')
-                slot = input('How much would you like to gamble? MUST BE 100 GOLD OR OVER.')
-            if slot >= '100':
+            slot = int(input('How much would you like to gamble?'))
+            
+            while slot > Character.gold:
+                slot = int(input('Enter a gambling amount that you have.'))
+                if slot <= Character.gold:
+                    break
+
+           
+            while slot <= Character.gold:
                 print('Nice amount. YOU NOW SPIN THE SLOT MACHINE.')
                 a_list = ['Gold', 'Junk','Diamond']
                 slot1 = random.choice(a_list)
@@ -29,24 +33,41 @@ def gamble():
                 commence = Counter(slot_machine)
                 if commence['Gold'] > 1:
                     if commence['Gold'] == 3:
-                        print('You hit the 3 gold!')
+                        Character.gold = Character.gold + 3 * slot
+                        print(f'You hit the 3 gold!, you now have {Character.gold}')
                         print(commence)
-                    print('You have won a little bit of gold.')
-                    print(commence)
+                        break
+                    else:
+                        Character.gold = Character.gold + 50
+                        print(f'You have won a little bit of gold. You now have {Character.gold}')
+                        print(commence)
+                        break
                 if commence['Diamond'] > 1:
                     if commence['Diamond'] == 3:
-                        print('YOU HIT THE JACKPOT')
+                        Character.gold = Character.gold + slot * 5
+                        print(f'YOU HIT THE JACKPOT. YOU NOW HAVE {Character.gold}')
                         print(commence)
-                    print('You have won a little bit of gold.')
-                    print(commence)
+                        break
+                    else:
+                        Character.gold = Character.gold + 75
+                        print(f'You have won a little bit of gold. You now have {Character.gold}')
+                        print(commence)
+                        break
                 if commence['Junk'] > 1:
                     if commence['Junk'] == 3:
-                        print('You hit the junk jackpot nerd')
+                        Character.gold = Character.gold - 150
+                        print(f'You hit the junk jackpot nerd, you now have {Character.gold}')
                         print(commence)
-                    print('You lost a bit of gold...')
-                    print(commence)
+                        break
+                    else:
+                        Character.gold = Character.gold - 50
+                        print(f'You lost a bit of gold... You now have {Character.gold}')
+                        print(commence)
+                        break
                 else:
+                    print('I forgor')
                     print(commence)
+
 
 
 
@@ -109,7 +130,7 @@ def trivia():
         print(f'Incorrect, you have lost gold... ')#You now have {Character.gold})
 
             
-gamble()
+
 
 
 
