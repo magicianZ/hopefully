@@ -72,13 +72,13 @@ def typing():
         if positive_t <= 10:
             base = float( (2-(positive_t/10))*100)
             real_base = round(base)
-            #self.gold = self.gold + real_base
+            #Character.gold = Character.gold + real_base
             print(f'Good job, you typed this in {positive_t} seconds. You gained some gold.')
         elif positive_t >10:
             print('You were too slow. You do not get anything.')
     elif their_spelling != variable:
-        self.gold = self.gold - 50
-        print(f'you spelt it wrong nerd. You lost gold, you now have {self.gold}')
+        Character.gold = Character.gold - 50
+        print(f'you spelt it wrong nerd. You lost gold, you now have {Character.gold}')
         
     
 
@@ -100,13 +100,13 @@ def trivia():
     print(the_question['question'])
     yessir = input('Answer').lower()
     if yessir == the_question['answer']:
-        #self.gold = self.gold + 100
-        print(f'Correct, you now have') #{self.gold}
+        #Character.gold = Character.gold + 100
+        print(f'Correct, you now have') #{Character.gold}
     else:
-        #self.gold = self.gold - 50
+        #Character.gold = Character.gold - 50
         print(f'The correct answer was...')
         print(the_question['answer'])
-        print(f'Incorrect, you have lost gold... ')#You now have {self.gold})
+        print(f'Incorrect, you have lost gold... ')#You now have {Character.gold})
 
             
 gamble()
@@ -155,8 +155,8 @@ def puzzle1():
     if match == True:
         global win
         win = True
-        self.gold = self.gold + 150
-        print(f'Good job you won, you have gained $150 gold. Your gold is now {self.gold}')
+        Character.gold = Character.gold + 150
+        print(f'Good job you won, you have gained $150 gold. Your gold is now {Character.gold}')
     if match != True:
-        self.gold = self.gold - 50
-        print(f'You lost, and lost some gold. You now have {self.gold}')
+        Character.gold = Character.gold - 50
+        print(f'You lost, and lost some gold. You now have {Character.gold}')

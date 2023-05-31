@@ -227,121 +227,6 @@ class Player:
 
 Character = Player(150,"idk",50,3,100,int(49),150,100,50,10,500,[],500)
 
-def gamble():
-    while gamblingfr == True:
-        print('You encounter, a GAMBLING MACHINE.')
-        time.sleep(1)
-        gamb = input('Would you like to GAMBLE? Y/N')
-        if gamb == 'N':
-            print('So be it.')
-            break
-        if gamb == 'Y':
-            print('COMMENCE THE GAMBLING..')
-            time.sleep(1)
-            print('You encounter a slot machine.')
-            slot = int(input('How much would you like to gamble?'))
-            
-            while slot > Character.gold:
-                slot = int(input('Enter a gambling amount that you have.'))
-                if slot <= Character.gold:
-                    break
-
-           
-            while slot <= Character.gold:
-                print('Nice amount. YOU NOW SPIN THE SLOT MACHINE.')
-                a_list = ['Gold', 'Junk','Diamond']
-                slot1 = random.choice(a_list)
-                slot2 = random.choice(a_list)
-                slot3 = random.choice(a_list)
-                slot_machine = [slot1,slot2,slot3]
-                commence = Counter(slot_machine)
-                if commence['Gold'] > 1:
-                    if commence['Gold'] == 3:
-                        Character.gold = Character.gold + 3 * slot
-                        print(f'You hit the 3 gold!, you now have {Character.gold}')
-                        print(commence)
-                        break
-                    else:
-                        Character.gold = Character.gold + 50
-                        print(f'You have won a little bit of gold. You now have {Character.gold}')
-                        print(commence)
-                        break
-                if commence['Diamond'] > 1:
-                    if commence['Diamond'] == 3:
-                        Character.gold = Character.gold + slot * 5
-                        print(f'YOU HIT THE JACKPOT. YOU NOW HAVE {Character.gold}')
-                        print(commence)
-                        break
-                    else:
-                        Character.gold = Character.gold + 75
-                        print(f'You have won a little bit of gold. You now have {Character.gold}')
-                        print(commence)
-                        break
-                if commence['Junk'] > 1:
-                    if commence['Junk'] == 3:
-                        Character.gold = Character.gold - 150
-                        print(f'You hit the junk jackpot nerd, you now have {Character.gold}')
-                        print(commence)
-                        break
-                    else:
-                        Character.gold = Character.gold - 50
-                        print(f'You lost a bit of gold... You now have {Character.gold}')
-                        print(commence)
-                        break
-                else:
-                    print('I forgor')
-                    print(commence)
-
-
-def puzzle1():
-    choices = ['Rock','Paper','Scissors']
-    print('Lets play rock paper scissors!')
-
-    player_choice = input("Rock paper scissors, what do you pick?").capitalize()
-    computer_choice = random.choice(choices)
-
-    while player_choice not in choices:
-        player_choice = input('Rock paper scissors, what do you pick?').capitalize()
-
-    if player_choice == computer_choice:
-        print('It was a tie')
-        print('You have won, you may continue..')
-        match = True
-    elif player_choice == 'Rock':
-        if computer_choice == 'Paper':
-            print ('You lose')
-        elif computer_choice == 'Scissors':
-            print ('You win')
-            print('You have won, you may continue..')
-            match = True
-            
-
-    elif player_choice == 'Paper':
-        if computer_choice == 'Scissors':
-            print ('You lose')
-        elif computer_choice == 'Rock':
-            print ('You win')
-            print('You have won, you may continue..')
-            match = True
-        
-
-    elif player_choice == 'Scissors':
-        if computer_choice == 'Rock':
-            print ('You lose')
-    elif computer_choice == 'Paper':
-        print ('You win')
-        print('You have won, you may continue..')
-        match = True
-    if match == True:
-        global win
-        win = True
-        Character.gold = Character.gold + 150
-        print(f'Good job you won, you have gained $150 gold. Your gold is now {Character.gold}')
-    if match != True:
-        Character.gold = Character.gold - 50
-        print(f'You lost, and lost some gold. You now have {Character.gold}')
-puzzle1()
-
 
 
 NPC1 = Player(1300,"NPC",10,3,30,0,200,10,20,0,0,[],0)
@@ -352,7 +237,7 @@ NPC5 = Player(1000,"NPC",10,3,30,0,200,10,20,0,0,[],0)
 
 Boss = Player(7000,"NPC",100,6,200,0,200,200,100,0,0,[],0)
 #HP,Name,Damage,energy_point,magic_damage,gold,max_HP
-
+from puzzle import puzzle1, gamble,typing, trivia
 
 
 
@@ -361,7 +246,7 @@ EnemiestURN = False
 running = True
 enemies = [NPC1,NPC2,NPC3,NPC4,NPC5]
 
-
+puzzl = [puzzle1,gamble,typing,trivia]
 
 
 
@@ -455,8 +340,9 @@ elif first == "Explore":
     start = "go"
 if start == "go":    
     print("You're exploring a forest near the village you started at. While exploring you encounter a monster, you can choose fight it or run away...")
-ran = [1,2,3]
+ran = [4]
 prs = [1,2]
+
 coi = list(range(100,300))
 
 
@@ -527,6 +413,7 @@ def paths():
                 elif deep == 2:
                     print("You found another Monster.")
                     tatakae()
+        
     elif np == "Right" :
         numb = random.choice(ran)
         if numb == 1:
@@ -559,9 +446,23 @@ def paths():
                 elif deep == 2:
                     print("You found another Monster.")
                     tatakae()      
-        elif numb == 2:
-            print("You found another Monster.")
-            tatakae()
+        elif numb == 4:
+            puz = random.choice(puzzl)
+            if puz == trivia:
+                trivia()
+                puz.remove(trivia)
+            elif puz == gamble:
+                gamble()
+                puz.remove(gamble)
+            elif puz == puzzle1:
+                puzzle1()
+                puz.remove(puzzle1)
+            elif puz == typing:
+                typing()
+                puz.remove(typing)
+            
+
+        
     elif np == "Return":
         town()
 tatakae()

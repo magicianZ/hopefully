@@ -22,7 +22,7 @@ class Player:
         self.magic_damage = magic_damage
         self.max_attack = max_attack
         self.max_magicdmg = max_magicdmg
-        self.gold = gold
+        Character.gold = gold
         self.max_HP = max_HP
         self.ultpoints = ultpoints
         self.ultdmg = ultdmg
@@ -160,15 +160,15 @@ class Player:
           
 
     def add_gold(self,amount):
-        self.gold = self.gold + amount
-        print(f'{self.Name} now has {self.gold} gold')
+        Character.gold = Character.gold + amount
+        print(f'{self.Name} now has {Character.gold} gold')
 
 
 
 
     def preview_items(self):
         print('Welcome to the shop')
-        print(f'I see you have, {self.gold} gold.')
+        print(f'I see you have, {Character.gold} gold.')
         time.sleep(1)
         print('Our items are...')
         time.sleep(0.5)
@@ -181,18 +181,18 @@ class Player:
         weapon_choice = input('Would you like to buy anything? Y/N').capitalize()
         if weapon_choice == 'Y':
             what_item = input('What item would you like to buy?').capitalize()
-            if self.gold <= 0:
+            if Character.gold <= 0:
                 print('You have no gold, brokie...')
             if what_item == 'Stone':
-                if self.gold >= 50:
+                if Character.gold >= 50:
                     self.max_attack = self.Damage + self.Stone
                     self.Damage = self.max_attack
                     print(f'{self.Name} damage is now {self.Damage}')
-                    self.gold = self.gold - 50
-                    print(f'You now have {self.gold} gold')
+                    Character.gold = Character.gold - 50
+                    print(f'You now have {Character.gold} gold')
               
             if what_item == 'Armor':
-                if self.gold >= 100:
+                if Character.gold >= 100:
                     self.max_HP = self.max_HP + self.Armor
                     self.HP = self.max_HP
                     print(f'{self.Name} HP is now {self.max_HP}')
@@ -200,18 +200,18 @@ class Player:
                     print('Take an item for your troubles!')
                     time.sleep(0.3)
                     item()
-                    self.gold = self.gold - 100
-                    print(f'You now have {self.gold} gold')
+                    Character.gold = Character.gold - 100
+                    print(f'You now have {Character.gold} gold')
                   
             if what_item == 'Wand':
-                if self.gold >= 200:
+                if Character.gold >= 200:
                     self.max_magicdmg = self.magic_damage + self.Wand
                     self.magic_damage = self.max_magicdmg
                     self.maxult = self.ultdmg + 200
                     self.ultdmg = self.maxult
                     print(f'{self.Name} magic damage is now {self.magic_damage} and your ultimate damage is now {self.ultdmg}')
-                    self.gold = self.gold - 200
-                    print(f'You now have {self.gold} gold')
+                    Character.gold = Character.gold - 200
+                    print(f'You now have {Character.gold} gold')
         if weapon_choice == 'N':
             print('Ok cheapskate...')
 
