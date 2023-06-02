@@ -68,13 +68,6 @@ def gamble():
                     print('I forgor')
                     print(commence)
 
-
-
-
-
-                
-
-
 def typing():
     math = ["Pneumonoultramicroscopicsilicovolcanoconiosis","Hippopotomonstrosesquippedaliophobia","Floccinaucinihilipilification","Supercalifragilisticexpialidocious","Thyroparathyroidectomized","Honorificabilitudinitatibus"]
     #s
@@ -93,18 +86,14 @@ def typing():
         if positive_t <= 10:
             base = float( (2-(positive_t/10))*100)
             real_base = round(base)
-            #Character.gold = Character.gold + real_base
-            print(f'Good job, you typed this in {positive_t} seconds. You gained some gold.')
+            Character.gold = Character.gold + real_base
+            print(f'Good job, you typed this in {positive_t} seconds. You gained some gold. You now have {Character.gold}')
         elif positive_t >10:
             print('You were too slow. You do not get anything.')
     elif their_spelling != variable:
         Character.gold = Character.gold - 50
         print(f'you spelt it wrong nerd. You lost gold, you now have {Character.gold}')
-        
-    
-
-
-            
+                   
 def trivia():
     trivia = {'question':"How much does the wand buff your magic damage by?", 'answer': '150'}
     trivia1 = {'question':"What is the ultimate's base damage.", 'answer':'500'}
@@ -121,18 +110,13 @@ def trivia():
     print(the_question['question'])
     yessir = input('Answer').lower()
     if yessir == the_question['answer']:
-        #Character.gold = Character.gold + 100
-        print(f'Correct, you now have') #{Character.gold}
+        Character.gold = Character.gold + 100
+        print(f'Correct, you now have {Character.gold}')
     else:
-        #Character.gold = Character.gold - 50
+        Character.gold = Character.gold - 50
         print(f'The correct answer was...')
         print(the_question['answer'])
-        print(f'Incorrect, you have lost gold... ')#You now have {Character.gold})
-
-            
-
-
-
+        print(f'Incorrect, you have lost gold... You now have {Character.gold}')
 
 def puzzle1():
     choices = ['Rock','Paper','Scissors']
