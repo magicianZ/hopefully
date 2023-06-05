@@ -314,7 +314,7 @@ def typing():
                    
 def gamble():
     while gamblingfr == True:
-        print('You encounter, a GAMBLING MACHINE.')
+        print(f'You encounter, a GAMBLING MACHINE. You have {Character.gold} gold.')
         time.sleep(1)
         gamb = input('Would you like to GAMBLE? Y/N')
         if gamb == 'N':
@@ -374,8 +374,8 @@ def gamble():
                         print(commence)
                         break
                 else:
-                    print('I forgor')
-                    print(commence)
+                    break
+                    
 
 def trivia():
     trivia = {'question':"How much does the wand buff your magic damage by?", 'answer': '150'}
@@ -500,7 +500,7 @@ elif first == "Explore":
     start = "go"
 if start == "go":    
     print("You're exploring a forest near the village you started at. While exploring you encounter a monster, you can choose fight it or run away...")
-ran = [4]
+ran = [1,2,3,4,4]
 prs = [1,2]
 
 coi = list(range(100,300))
@@ -573,7 +573,21 @@ def paths():
                 elif deep == 2:
                     print("You found another Monster.")
                     tatakae()
-        
+        elif numb == 4:
+            puz = random.choice(puzzl)
+            if puz == "puzzle1":
+                puzzle1()
+                puzzl.remove("puzzle1")
+            elif puz == "typing":
+                typing()
+                puzzl.remove("typing")
+            elif puz == "trivia":
+                trivia()
+                puzzl.remove("trivia")
+            elif puz == "gamble":
+                gamble()
+                puzzl.remove("gamble")
+            town()
     elif np == "Right" :
         numb = random.choice(ran)
         if numb == 1:
@@ -620,8 +634,6 @@ def paths():
             elif puz == "gamble":
                 gamble()
                 puzzl.remove("gamble")
-            print(puz)
-
             town()
             
 
