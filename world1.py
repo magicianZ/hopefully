@@ -4,16 +4,17 @@ from collections import Counter
 gamblingfr = True
 
 class Player:
-    Stone = 100
+    Stone = 50
     Armor = 150
-    Wand = 150
+    Wand = 200
     Magic_Armor = 50
     items = ['Stone','Armor','Wand','Magic_Armor']
-    inventory_items = ['Smoothie','Protein_Bar','Potion']
+    inventory_items = ['Smoothie','Protein_Bar','Potion','Elixir']
     Smoothie = 75
-    Protein_Bar = 50
+    Protein = 50
     Potion = 100
     noah_rozin = True
+    Elixir = 2
    
     def __init__(self,HP,Name,Damage,energy_point,magic_damage,gold,max_HP,max_magicdmg,max_attack,ultpoints,ultdmg,inventory,maxult):
         self.HP = HP
@@ -39,7 +40,8 @@ class Player:
         damage_taken = target.HP - self.Damage
         target.HP = damage_taken
         self.energy_point = self.energy_point + 1
-        print(f'{self.Name} has attacked {target.Name}. {target.Name} is {target.HP} HP and {self.Name} has {self.energy_point}energy points')
+        print(f'{self.Name} has attacked {target.Name}')
+        print(f'{target.Name} is {target.HP} HP and {self.Name} has {self.energy_point}energy points')
         print('')
         print('')
             
@@ -55,7 +57,8 @@ class Player:
             self.ultpoints = self.ultpoints + 1
             damage_taken = target.HP - self.magic_damage
             target.HP = damage_taken
-            print(f'{self.Name} has magic attacked {target.Name}. {target.Name} is now {target.HP} HP and {self.Name} has {self.energy_point} energy points and {self.ultpoints} points')
+            print(f'{self.Name} has magic attacked {target.Name}')
+            print(f'{target.Name} is now {target.HP} HP and {self.Name} has {self.energy_point} energy points and {self.ultpoints}  ultimate points')
             print('')
             print('')
 
@@ -97,16 +100,21 @@ class Player:
                     self.HP = self.HP + self.Smoothie
                     print(f'{self.Name} is now {self.HP} HP.')
                     self.inventory.remove('Smoothie')
-            elif 'Protein_Bar' in self.inventory:
-                if choicehm == 'Protein_Bar':
-                    self.HP = self.HP + self.Protein_Bar
+            elif 'Protein' in self.inventory:
+                if choicehm == 'Protein':
+                    self.HP = self.HP + self.Protein
                     print(f'{self.Name} is now {self.HP} HP.')
-                    self.inventory.remove('Protein_Bar')
+                    self.inventory.remove('Protein')
             elif 'Potion' in self.inventory:
                 if choicehm == 'Potion':
                     self.HP = self.HP + self.Protein_Bar
                     print(f'{self.Name} is now {self.HP} HP.')
                     self.inventory.remove('Potion')
+            elif 'Elixir' in self.inventory:
+                if choicehm == 'Elixir':
+                    self.energy_point = self.energy_point + self.Elixir
+                    print(f'{self.Name} now has {self.energy_point} energy points.')
+                    self.inventory.remove('Elixir') 
             elif choicehm == 'N':
                 break
             else:
@@ -135,6 +143,7 @@ class Player:
        time.sleep(0.3)
        print(f'You have {self.energy_point} energy points and {self.ultpoints} ult points.')
        user_input = input('What would you like to do?').capitalize()
+       print('')
 
         
        if user_input == 'Attack':
@@ -174,9 +183,9 @@ class Player:
         time.sleep(1)
         print('Our items are...')
         time.sleep(0.5)
-        print('Stone: Cost: 50 gold. Buff: Increases Normal Attack by 100.')
+        print('Stone: Cost: 50 gold. Buff: Increases Normal Attack by 50.')
         time.sleep(0.5)
-        print('Wand: Cost: 200 Buff: Increases Magic Damage by 150 and Ultimate Damage by 200')
+        print('Wand: Cost: 150 Buff: Increases Magic Damage by 200 and Ultimate Damage by 200')
         time.sleep(0.5)
         print('Armor: Cost: 100. Buff: Increases HP by 150.')
         time.sleep(0.5)
@@ -206,13 +215,13 @@ class Player:
                     print(f'You now have {self.gold} gold')
                   
             if what_item == 'Wand':
-                if self.gold >= 200:
+                if self.gold >= 150:
                     self.max_magicdmg = self.magic_damage + self.Wand
                     self.magic_damage = self.max_magicdmg
                     self.maxult = self.ultdmg + 200
                     self.ultdmg = self.maxult
                     print(f'{self.Name} magic damage is now {self.magic_damage} and your ultimate damage is now {self.ultdmg}')
-                    self.gold = self.gold - 200
+                    self.gold = self.gold - 150
                     print(f'You now have {self.gold} gold')
         if weapon_choice == 'N':
             print('Ok cheapskate...')
@@ -235,7 +244,7 @@ NPC3 = Player(1400,"NPC",10,3,30,0,200,10,20,0,0,[],0)
 NPC4 = Player(950,"NPC",10,3,30,0,200,10,20,0,0,[],0)
 NPC5 = Player(1000,"NPC",10,3,30,0,200,10,20,0,0,[],0)
 
-Boss = Player(7000,"NPC",100,6,200,0,200,200,100,0,0,[],0)
+Boss = Player(7000,"NPC",40,6,80,0,200,200,100,0,0,[],0)
 #HP,Name,Damage,energy_point,magic_damage,gold,max_HP
 
 def puzzle1():
@@ -332,49 +341,50 @@ def gamble():
                     break
 
            
-            while slot <= Character.gold:
-                print('Nice amount. YOU NOW SPIN THE SLOT MACHINE.')
-                a_list = ['Gold', 'Junk','Diamond']
-                slot1 = random.choice(a_list)
-                slot2 = random.choice(a_list)
-                slot3 = random.choice(a_list)
-                slot_machine = [slot1,slot2,slot3]
-                commence = Counter(slot_machine)
-                if commence['Gold'] > 1:
-                    if commence['Gold'] == 3:
-                        Character.gold = Character.gold + 3 * slot
-                        print(f'You hit the 3 gold!, you now have {Character.gold}')
-                        print(commence)
-                        break
-                    else:
-                        Character.gold = Character.gold + 50
-                        print(f'You have won a little bit of gold. You now have {Character.gold}')
-                        print(commence)
-                        break
-                if commence['Diamond'] > 1:
-                    if commence['Diamond'] == 3:
-                        Character.gold = Character.gold + slot * 5
-                        print(f'YOU HIT THE JACKPOT. YOU NOW HAVE {Character.gold}')
-                        print(commence)
-                        break
-                    else:
-                        Character.gold = Character.gold + 75
-                        print(f'You have won a little bit of gold. You now have {Character.gold}')
-                        print(commence)
-                        break
-                if commence['Junk'] > 1:
-                    if commence['Junk'] == 3:
-                        Character.gold = Character.gold - 150
-                        print(f'You hit the junk jackpot nerd, you now have {Character.gold}')
-                        print(commence)
-                        break
-                    else:
-                        Character.gold = Character.gold - 50
-                        print(f'You lost a bit of gold... You now have {Character.gold}')
-                        print(commence)
-                        break
-                else:
+     
+            print('Nice amount. YOU NOW SPIN THE SLOT MACHINE.')
+            a_list = ['Gold', 'Junk','Diamond']
+            slot1 = random.choice(a_list)
+            slot2 = random.choice(a_list)
+            slot3 = random.choice(a_list)
+            slot_machine = [slot1,slot2,slot3]
+            commence = Counter(slot_machine)
+            if commence['Gold'] > 1:
+                if commence['Gold'] == 3:
+                    Character.gold = Character.gold + 3 * slot
+                    print(f'You hit the 3 gold!, you now have {Character.gold}')
+                    print(commence)
                     break
+                else:
+                    Character.gold = Character.gold + 50
+                    print(f'You have won a little bit of gold. You now have {Character.gold}')
+                    print(commence)
+                    break
+            if commence['Diamond'] > 1:
+                if commence['Diamond'] == 3:
+                    Character.gold = Character.gold + slot * 5
+                    print(f'YOU HIT THE JACKPOT. YOU NOW HAVE {Character.gold}')
+                    print(commence)
+                    break
+                else:
+                    Character.gold = Character.gold + 75
+                    print(f'You have won a little bit of gold. You now have {Character.gold}')
+                    print(commence)
+                    break
+            if commence['Junk'] > 1:
+                if commence['Junk'] == 3:
+                    Character.gold = Character.gold - 150
+                    print(f'You hit the junk jackpot nerd, you now have {Character.gold}')
+                    print(commence)
+                    break
+                else:
+                    Character.gold = Character.gold - 50
+                    print(f'You lost a bit of gold... You now have {Character.gold}')
+                    print(commence)
+                    break
+            else:
+                print(commence)
+                break
                     
 
 def trivia():
@@ -453,7 +463,7 @@ def item():
     ok = random.choice(Character.inventory_items)
     print(f'You have found an {ok}')
     Character.inventory.append(ok)
-    print(Character.inventory)
+    print(f'Your inventory is now {Character.inventory}')
 
 
 
