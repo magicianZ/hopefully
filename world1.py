@@ -9,7 +9,7 @@ class Player:
     Wand = 200
     Magic_Armor = 50
     items = ['Stone','Armor','Wand','Magic_Armor']
-    inventory_items = ['Smoothie','Protein_Bar','Potion','Elixir']
+    inventory_items = ['Smoothie','Protein','Potion','Elixir']
     Smoothie = 75
     Protein = 50
     Potion = 100
@@ -41,9 +41,11 @@ class Player:
         target.HP = damage_taken
         self.energy_point = self.energy_point + 1
         print(f'{self.Name} has attacked {target.Name}')
-        print(f'{target.Name} is {target.HP} HP and {self.Name} has {self.energy_point}energy points')
         print('')
-        print('')
+        print(f'{target.Name} is {target.HP} HP ')
+        print(f'{self.Name} has {self.energy_point} energy points')
+        
+        
             
         
 
@@ -57,10 +59,13 @@ class Player:
             self.ultpoints = self.ultpoints + 1
             damage_taken = target.HP - self.magic_damage
             target.HP = damage_taken
+            print('')
             print(f'{self.Name} has magic attacked {target.Name}')
-            print(f'{target.Name} is now {target.HP} HP and {self.Name} has {self.energy_point} energy points and {self.ultpoints}  ultimate points')
+            time.sleep(0.5)
+            print(f'{target.Name} is now {target.HP} HP')
+            print(f'{self.Name} has {self.energy_point} energy points and {self.ultpoints}  ultimate points')
             print('')
-            print('')
+            
 
         else:
             print('Recover energy')
@@ -83,42 +88,45 @@ class Player:
                 target.HP = nuke_taken
                 print(f'You have done {real_dmg} dmg')
                 self.ultpoints = 0
-                print (f'{target.Name} is now {target.HP} HP and you have {self.ultpoints} ultimate points')
+                print (f'{target.Name} is now {target.HP} HP')
+                print(f'{self.Name} has {self.ultpoints} ultimate points')
             elif t < -5:
                 print('You have exceeded 5 seconds..')
                 real_dmg = self.ultdmg
                 nuke_taken = target.HP - real_dmg
                 target.HP = nuke_taken
                 self.ultpoints = 0
-                print (f'{target.Name} is now {target.HP} HP and you have {self.ultpoints} ultimate points.')
+                print (f'{target.Name} is now {target.HP} HP ')
+                print(f'{self.Name}  has {self.ultpoints} ultimate points.')
                 print('--------------------------------------------')
     def use_item(self):
         while self.noah_rozin == True:
             choicehm = input(f'You have chose to use an item, out of {self.inventory}, what item would you like to use? If you do not want to use an item, type N').capitalize()
+            print(choicehm)
             if 'Smoothie' in self.inventory:
                 if choicehm == 'Smoothie':
                     self.HP = self.HP + self.Smoothie
                     print(f'{self.Name} is now {self.HP} HP.')
                     self.inventory.remove('Smoothie')
-            elif 'Protein' in self.inventory:
+            if 'Protein' in self.inventory:
                 if choicehm == 'Protein':
                     self.HP = self.HP + self.Protein
                     print(f'{self.Name} is now {self.HP} HP.')
                     self.inventory.remove('Protein')
-            elif 'Potion' in self.inventory:
+            if 'Potion' in self.inventory:
                 if choicehm == 'Potion':
-                    self.HP = self.HP + self.Protein_Bar
+                    self.HP = self.HP + self.Potion
                     print(f'{self.Name} is now {self.HP} HP.')
                     self.inventory.remove('Potion')
-            elif 'Elixir' in self.inventory:
+            if 'Elixir' in self.inventory:
                 if choicehm == 'Elixir':
                     self.energy_point = self.energy_point + self.Elixir
                     print(f'{self.Name} now has {self.energy_point} energy points.')
                     self.inventory.remove('Elixir') 
-            elif choicehm == 'N':
+            if choicehm == 'N':
                 break
             else:
-                print('You do not have that item.')
+                print('Use another item if you have!')
 
 
         
@@ -221,6 +229,8 @@ class Player:
                     self.maxult = self.ultdmg + 200
                     self.ultdmg = self.maxult
                     print(f'{self.Name} magic damage is now {self.magic_damage} and your ultimate damage is now {self.ultdmg}')
+                    print('Take an elixir for your troubles!')
+                    self.inventory.append('Elixir')
                     self.gold = self.gold - 150
                     print(f'You now have {self.gold} gold')
         if weapon_choice == 'N':
@@ -238,11 +248,14 @@ Character = Player(150,"idk",50,3,100,int(100),150,100,50,10,500,[],500)
 
 
 
-NPC1 = Player(1300,"NPC",10,3,30,0,200,10,20,0,0,[],0)
-NPC2 = Player(1500,"NPC",10,3,30,0,200,10,20,0,0,[],0)
-NPC3 = Player(1400,"NPC",10,3,30,0,200,10,20,0,0,[],0)
-NPC4 = Player(950,"NPC",10,3,30,0,200,10,20,0,0,[],0)
-NPC5 = Player(1000,"NPC",10,3,30,0,200,10,20,0,0,[],0)
+NPC1 = Player(950,"NPC",10,3,30,0,200,10,20,0,0,[],0)
+NPC2 = Player(1000,"NPC",10,3,30,0,200,10,20,0,0,[],0)
+NPC3 = Player(1300,"NPC",10,3,30,0,200,10,20,0,0,[],0)
+NPC4 = Player(1400,"NPC",10,3,30,0,200,10,20,0,0,[],0)
+NPC5 = Player(1500,"NPC",10,3,30,0,200,10,20,0,0,[],0)
+NPC6 = Player(1700,"NPC",10,3,30,0,200,10,20,0,0,[],0)
+NPC7 = Player(2000,"NPC",10,3,30,0,200,10,20,0,0,[],0)
+
 
 Boss = Player(7000,"NPC",40,6,80,0,200,200,100,0,0,[],0)
 #HP,Name,Damage,energy_point,magic_damage,gold,max_HP
@@ -414,7 +427,7 @@ def trivia():
 LysTurn = True
 EnemiestURN = False
 running = True
-enemies = [NPC1,NPC2,NPC3,NPC4,NPC5]
+enemies = [NPC1,NPC2,NPC3,NPC4,NPC5,NPC6,NPC7]
 
 puzzl = ["puzzle1","gamble","trivia","typing"]
 
@@ -422,7 +435,7 @@ puzzl = ["puzzle1","gamble","trivia","typing"]
 
 def encounter():
     Character.energy_point = 3
-    enemy = random.choice(enemies)
+    enemy = enemies[0]
     enemy.energy_point = 3
     while running:
         if LysTurn:
@@ -465,7 +478,9 @@ def item():
     Character.inventory.append(ok)
     print(f'Your inventory is now {Character.inventory}')
 
-
+item()
+item()
+item()
 
 def boss():
     print('You encounter a large foe, good luck.')
