@@ -257,7 +257,7 @@ NPC6 = Player(1700,"NPC",10,3,30,0,200,10,20,0,0,[],0)
 NPC7 = Player(2000,"NPC",10,3,30,0,200,10,20,0,0,[],0)
 
 
-Boss = Player(7000,"NPC",40,6,80,0,200,200,100,0,0,[],0)
+Boss = Player(7000,"Mr_Whalen",40,6,80,0,200,200,100,0,0,[],0)
 #HP,Name,Damage,energy_point,magic_damage,gold,max_HP
 
 def puzzle1():
@@ -273,14 +273,18 @@ def puzzle1():
     if player_choice == computer_choice:
         print('It was a tie')
         print('You have won, you may continue..')
-        match = True
+        Character.gold = Character.gold + 150
+        print(f'Good job you won, you have gained $150 gold. Your gold is now {Character.gold}')
+     
     elif player_choice == 'Rock':
         if computer_choice == 'Paper':
             print ('You lose')
         elif computer_choice == 'Scissors':
             print ('You win')
             print('You have won, you may continue..')
-            match = True
+            Character.gold = Character.gold + 150
+            print(f'Good job you won, you have gained $150 gold. Your gold is now {Character.gold}')
+           
             
 
     elif player_choice == 'Paper':
@@ -289,7 +293,9 @@ def puzzle1():
         elif computer_choice == 'Rock':
             print ('You win')
             print('You have won, you may continue..')
-            match = True
+            Character.gold = Character.gold + 150
+            print(f'Good job you won, you have gained $150 gold. Your gold is now {Character.gold}')
+            
         
 
     elif player_choice == 'Scissors':
@@ -297,16 +303,9 @@ def puzzle1():
             print ('You lose')
     elif computer_choice == 'Paper':
         print ('You win')
-        print('You have won, you may continue..')
-        match = True
-    if match == True:
-        global win
-        win = True
         Character.gold = Character.gold + 150
         print(f'Good job you won, you have gained $150 gold. Your gold is now {Character.gold}')
-    if match != True:
-        Character.gold = Character.gold - 50
-        print(f'You lost, and lost some gold. You now have {Character.gold}')
+    
 
 def typing():
     math = ["Pneumonoultramicroscopicsilicovolcanoconiosis","Hippopotomonstrosesquippedaliophobia","Floccinaucinihilipilification","Supercalifragilisticexpialidocious","Thyroparathyroidectomized","Honorificabilitudinitatibus"]
@@ -478,9 +477,7 @@ def item():
     Character.inventory.append(ok)
     print(f'Your inventory is now {Character.inventory}')
 
-item()
-item()
-item()
+
 
 def boss():
     print('You encounter a large foe, good luck.')
